@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Gui-Eli-Fer | Carnicería Premium</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/20 bg-background-dark/95 backdrop-blur-md px-6 lg:px-20 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3">
+<img src="Imagenes/logo.png" class="h-16 w-auto" alt="Logo Gui-Eli-Fer">
+<h1 class="font-display text-2xl font-bold tracking-tight text-slate-100">Gui-Eli-Fer</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-100 hover:text-primary transition-colors font-medium" href="#">Inicio</a>
+<a class="text-slate-100/70 hover:text-primary transition-colors font-medium" href="#catalogo">Catálogo</a>
+<a class="text-slate-100/70 hover:text-primary transition-colors font-medium" href="#historia">Nuestra Historia</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="bg-primary/10 border-none rounded-lg pl-10 pr-4 py-2 text-slate-100 focus:ring-2 focus:ring-primary w-64 placeholder:text-slate-500" placeholder="Buscar cortes..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-100 hover:bg-primary/20 rounded-lg transition-all" onclick="window.location.href='checkout.html'">
+<span class="material-symbols-outlined text-2xl">shopping_cart</span>
+<span id="header-cart-count" class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">0</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center" data-alt="Juicy premium steak being seasoned on a grill" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD_IbRxhLpQ6LzJg3W6CIaDPHg1848IB15nxIM-4DxQBT7fVgTrAHW8mGl4iGNPknltqtWxiw1J5rVZhi4cvDNsGDJkaAlqNmkgAMGw5ZfF4SyKOHAZPB7VaHEbkjNR6siNv0XFp4E2MeFwS5KFQMVO_2jdYA1lCo3Ghu6h6sefWssgp5JTNFLoXMBxApVRriWA3NRQjKItcbHd0YuJJrJDdN632CPvzRva71znR7zqSicQfqg1JhFwCDVIJkYPYJcJZzfQ6ySplglI')"></div>
+</div>
+<div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-20 w-full">
+<div class="max-w-2xl">
+<span class="inline-block px-4 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 text-sm font-bold mb-6">EST. 1985</span>
+<h2 class="font-display text-5xl md:text-7xl font-bold text-slate-100 leading-tight mb-6">
+                        Calidad Premium <br/> en tu mesa
+                    </h2>
+<p class="text-xl text-slate-300 mb-10 font-light max-w-lg leading-relaxed">
+                        Tradición familiar y el mejor sabor en cada corte. Seleccionamos cuidadosamente las mejores piezas de exportación.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<a class="px-8 py-4 bg-primary hover:bg-red-700 text-white rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-primary/20" href="#catalogo">
+                            Ver Catálogo
+                        </a>
+<a class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-xl font-bold transition-all" href="#historia">
+                            Nuestra Historia
+                        </a>
+</div>
+</div>
+</div>
+</section>
+<main class="max-w-7xl mx-auto px-6 lg:px-20 py-16 w-full">
+<!-- Catalog Section -->
+<section class="mb-24" id="catalogo">
+<div class="flex items-end justify-between mb-12">
+<div>
+<h3 class="font-display text-4xl font-bold text-slate-100 mb-2">Nuestro Catálogo</h3>
+<p class="text-slate-400">Los mejores cortes seleccionados por categoría</p>
+</div>
+<div class="flex flex-wrap gap-4 mt-8 md:mt-0">
+<button onclick="filterCategory('vaca')" id="btn-vaca" class="cat-btn px-6 py-2 rounded-full border border-primary bg-primary text-white font-bold transition-all">Vaca</button>
+<button onclick="filterCategory('cerdo')" id="btn-cerdo" class="cat-btn px-6 py-2 rounded-full border border-primary/30 text-slate-300 font-bold hover:bg-primary/10 transition-all">Cerdo</button>
+<button onclick="filterCategory('pollo')" id="btn-pollo" class="cat-btn px-6 py-2 rounded-full border border-primary/30 text-slate-300 font-bold hover:bg-primary/10 transition-all">Pollo</button>
+<button onclick="filterCategory('conejo')" id="btn-conejo" class="cat-btn px-6 py-2 rounded-full border border-primary/30 text-slate-300 font-bold hover:bg-primary/10 transition-all">Conejo</button>
+</div>
+</div>
+<div id="catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Los productos se cargarán dinámicamente aquí -->
+</div>
+</div>
+</section>
+<!-- History Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-20 border-t border-primary/10" id="historia">
+<div class="relative">
+<div class="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="relative rounded-2xl overflow-hidden shadow-2xl sepia-[0.3]">
+<img class="w-full max-h-[450px] object-cover rounded-2xl" data-alt="Vintage black and white butcher shop photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpu-5bLzGvOtLGY6c8hgtswXu7TMvgG76fw_PKXjWLMpogTf_Br4t-xb6guFEDXacDBJHry2EIkzirW0sY8M0x4aPs8uf7MxuK1DZHYzA1zEzhu0VA_AOfTOLDag1WgIvoHPt9Kf5hnplU5oVPLvP5UoATpv6ZO0tWECFebdt9dK11hKjlfmpM2dyVHiIYN9yJMBP0tFvu2SPXgYzq4O2ab9zscChMDkkuZVJUVsZlg_HnRTRFhOqeraY22iXx5_0ApEuBQKDRzk1N"/>
+</div>
+<div class="absolute -bottom-6 -right-6 bg-primary p-8 rounded-2xl shadow-xl hidden md:block">
+<span class="font-display text-4xl font-bold text-white italic">35+ Años</span>
+<p class="text-white/80 text-sm mt-1">de excelencia cárnica</p>
+</div>
+</div>
+<div class="space-y-6">
+<span class="text-primary font-bold tracking-widest uppercase text-sm">El Legado</span>
+<h2 class="font-display text-4xl md:text-5xl font-bold text-slate-100">Nuestra Historia</h2>
+<p class="text-slate-300 text-lg leading-relaxed">
+                        Fundada por Carlos Ferreyra en 1985, Gui-Eli-Fer nació con una premisa simple: llevar la mejor carne del campo directo a las familias del barrio. Lo que comenzó como un pequeño local familiar se convirtió en un referente de calidad premium.
+                    </p>
+<p class="text-slate-400 leading-relaxed">
+                        Hoy, la segunda generación mantiene vivos los secretos del desposte artesanal, seleccionando cada pieza con el mismo rigor de siempre. No solo vendemos carne, compartimos una pasión por el asado perfecto y la mesa compartida.
+                    </p>
+<div class="pt-6 grid grid-cols-2 gap-8">
+<div>
+<span class="block text-3xl font-bold text-primary mb-1">100%</span>
+<span class="text-sm text-slate-400">Pastoreo natural</span>
+</div>
+<div>
+<span class="block text-3xl font-bold text-primary mb-1">Local</span>
+<span class="text-sm text-slate-400">Productores zonales</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Cart Summary Bar (Floating) -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[90%] max-w-4xl">
+<div class="bg-background-dark/80 backdrop-blur-xl border border-primary/30 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl shadow-black/50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="text-xs text-slate-400 font-medium">TU CARRITO</p>
+<p id="footer-cart-desc" class="text-slate-100 font-bold">0 Productos seleccionados</p>
+</div>
+</div>
+<div class="h-10 w-px bg-primary/20 hidden md:block"></div>
+<div class="flex flex-col">
+<p class="text-xs text-slate-400 font-medium uppercase">Total estimado *</p>
+<p id="footer-cart-total" class="text-primary text-xl font-bold">ARS $0</p>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+                <button onclick="window.location.href='checkout.html'" class="flex-1 md:flex-none px-12 py-4 bg-primary text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-primary/20 uppercase tracking-[0.2em] text-sm">
+                    Ver Resumen del Pedido
+                </button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-primary/10 pt-20 pb-40">
+<div class="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3 text-primary mb-6">
+<img src="Imagenes/logo.png" class="h-12 w-auto" alt="Logo Gui-Eli-Fer">
+<h2 class="font-display text-2xl font-bold tracking-tight text-slate-100">Gui-Eli-Fer</h2>
+</div>
+<p class="text-slate-400 max-w-sm leading-relaxed">
+                        Expertos en cortes premium y atención personalizada. La mejor carne de la región directo a tu heladera.
+                    </p>
+</div>
+<div>
+<h4 class="text-slate-100 font-bold mb-6">Enlaces</h4>
+<ul class="space-y-4 text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#">Inicio</a></li>
+<li><a class="hover:text-primary transition-colors" href="#catalogo">Catálogo</a></li>
+<li><a class="hover:text-primary transition-colors" href="#historia">Nuestra Historia</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Envíos</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-100 font-bold mb-6">Contacto</h4>
+<ul class="space-y-4 text-slate-400">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> Buenos Aires, AR</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span> +54 9 11 1234 5678</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> hola@guielifer.com</li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 lg:px-20 border-t border-primary/5 pt-8 text-center text-slate-500 text-sm">
+                © 2024 Gui-Eli-Fer Butchery. Todos los derechos reservados.
+            </div>
+</footer>
+</div>
+    <script>
+const products = [
+            { id: 'ojo-bife', name: 'Ojo de Bife', price: 8500, category: 'vaca', desc: 'Corte premium con excelente infiltración.', img: 'Imagenes/ojo_de_bife.jpg' },
+            { id: 'costillar', name: 'Costillar', price: 7200, category: 'vaca', desc: 'Tradicional asado de tira, ideal parrilla.', img: 'Imagenes/costillar vaca.png' },
+            { id: 'vacio', name: 'Vacío Premium', price: 9100, category: 'vaca', desc: 'Corte jugoso y tierno, con capa de grasa.', img: 'Imagenes/vacio de vaca.jpg' },
+            { id: 'milanesa-vaca', name: 'Milanesa de Ternera', price: 5400, category: 'vaca', desc: 'Nalga o bola de lomo tiernizada.', img: 'Imagenes/Milanesa_ternera.jpg' },
+            { id: 'matambre', name: 'Matambre de Cerdo', price: 6800, category: 'cerdo', desc: 'Ideal para tiernizar a la leche o parrilla.', img: 'Imagenes/matambre de cerdo.jpg' },
+            { id: 'pechito', name: 'Pechito con Manta', price: 5900, category: 'cerdo', desc: 'Corte clásico de cerdo, muy sabroso.', img: 'Imagenes/pechito de cerdo.jpg' },
+            { id: 'chorizo', name: 'Chorizo Casero', price: 4500, category: 'cerdo', desc: 'Elaboración propia con especias.', img: 'Imagenes/chorizo.jpg' },
+            { id: 'pollo-entero', name: 'Pollo Completo', price: 2800, category: 'pollo', desc: 'Pollo de campo fresco por unidad.', img: 'Imagenes/pollo.jpg' },
+            { id: 'pollo-trozado', name: 'Pollo Trozado', price: 3100, category: 'pollo', desc: 'Listo para cocinar, trozado a mano.', img: 'Imagenes/pollo trozado.jpg' },
+            { id: 'pollo-deshuesado', name: 'Pollo Deshuesado', price: 4500, category: 'pollo', desc: 'Ideal para arrollar o plancha.', img: 'Imagenes/pollo deshuesado.jpg' },
+            { id: 'conejo-entero', name: 'Conejo Entero', price: 12000, category: 'conejo', desc: 'Carne magra y delicada, fresca del día.', img: 'Imagenes/conejo.jpg' }
+        ];
+
+        // Forzar limpieza del carrito al refrescar la página (como pidió el usuario)
+        sessionStorage.removeItem('butchery_cart');
+        let cart = [];
+
+        function renderCatalog(category) {
+            const container = document.getElementById('catalog-container');
+            container.innerHTML = '';
+            
+            const filtered = products.filter(p => p.category === category);
+            
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'group bg-primary/5 border border-primary/10 rounded-xl overflow-hidden hover:border-primary/40 transition-all duration-300 flex flex-col';
+                card.innerHTML = `
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${p.img}" alt="${p.name}">
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <h4 class="font-display text-xl font-bold text-slate-100 mb-1">${p.name}</h4>
+                        <p class="text-sm text-slate-400 mb-4 flex-1">${p.desc}</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xl font-bold text-primary">ARS $${p.price.toLocaleString('es-AR')} <span class="text-xs font-normal text-slate-400">/kg</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-4 bg-background-dark/50 rounded-lg p-1">
+                            <button onclick="decrement('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">remove</span></button>
+                            <span id="qty-${p.id}" class="px-4 font-bold text-slate-100">1</span>
+                            <button onclick="increment('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">add</span></button>
+                        </div>
+                        <button onclick="addToCart('${p.id}', '${p.name}', ${p.price})" class="w-full py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-colors">
+                            <span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Agregar
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            // Update buttons
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('border-primary/30', 'text-slate-300');
+            });
+            const activeBtn = document.getElementById('btn-' + cat);
+            activeBtn.classList.remove('border-primary/30', 'text-slate-300');
+            activeBtn.classList.add('bg-primary', 'text-white');
+            
+            renderCatalog(cat);
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            
+            document.getElementById('header-cart-count').innerText = totalItems;
+            document.getElementById('footer-cart-desc').innerText = `${totalItems} Productos seleccionados`;
+            document.getElementById('footer-cart-total').innerText = `ARS $${totalPrice.toLocaleString('es-AR')} *`;
+            
+            sessionStorage.setItem('butchery_cart', JSON.stringify(cart));
+        }
+
+        function increment(id) {
+            const el = document.getElementById(`qty-${id}`);
+            el.innerText = parseInt(el.innerText) + 1;
+        }
+
+        function decrement(id) {
+            const el = document.getElementById(`qty-${id}`);
+            const val = parseInt(el.innerText);
+            if (val > 1) {
+                el.innerText = val - 1;
+            }
+        }
+
+        function addToCart(id, name, price) {
+            const qty = parseInt(document.getElementById(`qty-${id}`).innerText);
+            const existingItem = cart.find(item => item.id === id);
+            
+            const product = products.find(p => p.id === id);
+            
+            if (existingItem) {
+                existingItem.qty += qty;
+                existingItem.img = product.img;
+            } else {
+                cart.push({ id, name, price, qty, img: product.img });
+            }
+            
+            updateCartUI();
+            
+            // Re-set display qty to 1 after adding
+            document.getElementById(`qty-${id}`).innerText = 1;
+
+            // Simple visual feedback
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '¡Agregado!';
+            btn.classList.replace('bg-primary', 'bg-green-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-green-600', 'bg-primary');
+            }, 2000);
+        }
+
+        // Initialize UI
+        renderCatalog('vaca');
+        updateCartUI();
+    </script>
+</body></html>

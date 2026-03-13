@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gui-Eli-Fer Envío y Pago Boutique</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;900&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"],
+                        "serif": ["Noto Serif", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Noto Serif', serif;
+        }
+        .form-input-custom {
+            background-color: #1a0a0a !important; /* Fondo muy oscuro sólido */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff !important; /* Texto blanco puro */
+            transition: all 0.3s ease;
+        }
+        .form-input-custom:focus {
+            background-color: #2a0a0a !important;
+            border-color: #f20d0d;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(242, 13, 13, 0.3);
+        }
+        .form-input-custom::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-6xl mx-auto px-6 py-8">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-white/10 pb-6 mb-10">
+<div class="flex items-center gap-4">
+    <img src="Imagenes/logo.png" class="h-16 w-auto" alt="Logo Gui-Eli-Fer">
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-slate-100 uppercase">Gui-Eli-Fer</h1>
+<p class="text-[10px] tracking-[0.3em] text-primary font-bold uppercase">Butchery &amp; Boutique</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<a class="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors text-slate-300" href="checkout.html">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Volver al Resumen
+                </a>
+</div>
+</header>
+<main class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Side: Form Details -->
+<div class="lg:col-span-8">
+<div class="mb-10">
+<h2 class="text-4xl font-bold mb-2">Finalizar Pedido</h2>
+<p class="text-slate-400">Complete los detalles de entrega para que su selección boutique llegue a su mesa.</p>
+</div>
+<section class="space-y-8">
+<div>
+<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Información de Entrega</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Nombre</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Juan" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Apellido</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Pérez" type="text"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Teléfono / WhatsApp (Obligatorio)</label>
+<input id="customer-phone" class="form-input-custom rounded-lg p-4" placeholder="Ej. +54 9 11 1234-5678" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Calle</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Av. Rivadavia" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Número / Piso</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="Ej. 1234, 2B" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Localidad</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="Ciudad o barrio" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Código Postal</label>
+<input class="form-input-custom rounded-lg p-4" placeholder="C1000" type="text"/>
+</div>
+</div>
+</div>
+<!-- Métodos -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+<!-- Método de Pago -->
+<div>
+<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Pago</h3>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+<input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="payment" type="radio"/>
+<div class="flex flex-col">
+<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Efectivo al entregar</span>
+<span class="text-xs text-slate-400">Pague en el momento de la recepción</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">payments</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+<input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="payment" type="radio"/>
+<div class="flex flex-col">
+<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Transferencia Bancaria</span>
+<span class="text-xs text-slate-400">Envío de comprobante vía WhatsApp</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">account_balance</span>
+</label>
+</div>
+</div>
+<!-- Método de Entrega -->
+<div>
+<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Entrega</h3>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+<input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="delivery" type="radio"/>
+<div class="flex flex-col">
+<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Envío a domicilio</span>
+<span class="text-xs text-slate-400">Reparto refrigerado premium</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">local_shipping</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+<input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="delivery" type="radio"/>
+<div class="flex flex-col">
+<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Retiro en local</span>
+<span class="text-xs text-slate-400">Take Away sin esperas</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">store</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Side: Order Summary Card -->
+<!-- Order Summary Sidebar -->
+<div class="lg:col-span-4">
+    <div class="sticky top-8 bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+        <h3 class="text-2xl font-bold mb-6">Tu Pedido</h3>
+        <div id="side-summary-container" class="space-y-4 mb-8">
+            <!-- Items dinámicos aquí -->
+        </div>
+        <div class="flex justify-between items-end mb-8 pt-6 border-t border-white/10">
+            <div>
+                <p class="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">Total Estimado *</p>
+                <p id="side-total" class="text-3xl font-bold text-slate-100">$0</p>
+            </div>
+            <span class="text-xs text-slate-500">Impuestos incl.</span>
+        </div>
+        <p class="text-[10px] text-slate-500 italic mb-6 leading-tight">
+            * El precio final se ajustará según el pesaje exacto de las piezas al momento de preparar su pedido.
+        </p>
+        <button id="final-confirm-btn" class="w-full bg-primary hover:bg-red-700 text-white py-5 rounded-xl font-bold text-lg transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group">
+            Confirmar y Enviar Pedido
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </button>
+        <div class="mt-6 flex flex-col items-center gap-2">
+            <p class="text-[10px] text-slate-500 uppercase tracking-tighter flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs text-primary">security</span>
+                Compra Protegida | Calidad Gui-Eli-Fer
+            </p>
+        </div>
+    </div>
+</div>
+</main>
+
+<script>
+    let cart = JSON.parse(sessionStorage.getItem('butchery_cart')) || [];
+
+    function renderSideSummary() {
+        const container = document.getElementById('side-summary-container');
+        const totalEl = document.getElementById('side-total');
+        
+        if (!container) return;
+        container.innerHTML = '';
+        let total = 0;
+
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="text-slate-500 italic text-sm">No hay productos seleccionados</p>';
+            totalEl.innerText = "$0";
+            return;
+        }
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.qty;
+            total += itemTotal;
+            
+            const div = document.createElement('div');
+            div.className = 'flex justify-between items-center py-2 border-b border-white/5';
+            div.innerHTML = `
+                <div class="flex flex-col">
+                    <span class="text-slate-300 font-medium">${item.name}</span>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">${item.qty} x ARS $${item.price.toLocaleString('es-AR')}</span>
+                </div>
+                <span class="font-bold text-slate-100">ARS $${itemTotal.toLocaleString('es-AR')}</span>
+            `;
+            container.appendChild(div);
+        });
+
+        // Añadir envío bonificado
+        const shippingDiv = document.createElement('div');
+        shippingDiv.className = 'flex justify-between items-center py-2 border-b border-white/5';
+        shippingDiv.innerHTML = `
+            <span class="text-slate-400">Costo de Envío</span>
+            <span class="font-medium text-primary uppercase text-xs tracking-widest">Bonificado</span>
+        `;
+        container.appendChild(shippingDiv);
+
+        totalEl.innerText = `ARS $${total.toLocaleString('es-AR')}`;
+    }
+
+    document.getElementById('final-confirm-btn').addEventListener('click', () => {
+        // Validación básica
+        const inputs = document.querySelectorAll('input[type="text"]');
+        let valid = true;
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.style.borderColor = '#f20d0d';
+                valid = false;
+            } else {
+                input.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
+
+        if (!valid) {
+            alert('Por favor, complete todos los campos de entrega y contacto para continuar.');
+            return;
+        }
+
+        const phoneVal = document.getElementById('customer-phone').value.trim();
+        if (!phoneVal) {
+            alert('Por favor, ingrese su Teléfono / WhatsApp para recibir el ticket final.');
+            document.getElementById('customer-phone').style.borderColor = '#f20d0d';
+            return;
+        }
+
+        if (cart.length === 0) {
+            alert('Su carrito está vacío.');
+            window.location.href = 'index.html';
+            return;
+        }
+
+        const btn = document.getElementById('final-confirm-btn');
+        btn.disabled = true;
+        btn.innerHTML = 'PROCESANDO...';
+
+        setTimeout(() => {
+            alert('¡PEDIDO RECIBIDO! Prepararemos sus productos y los pesaremos con precisión. En breve le enviaremos por WhatsApp el TICKET FINAL con los pesos exactos para coordinar la entrega y el pago. Gracias por elegir Gui-Eli-Fer.');
+            sessionStorage.removeItem('butchery_cart');
+            window.location.href = 'index.html';
+        }, 2500);
+    });
+
+    renderSideSummary();
+</script>
+<!-- Footer -->
+<footer class="mt-24 border-t border-white/5 pt-12 pb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-50">
+<h2 class="text-sm font-bold text-slate-100 uppercase">Gui-Eli-Fer</h2>
+<span class="text-slate-600">|</span>
+<p class="text-xs text-slate-400 tracking-widest uppercase">Tradición en Carne</p>
+</div>
+<div class="flex gap-8">
+<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Términos</a>
+<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Privacidad</a>
+<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Soporte</a>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">share</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">call</span>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Gui-Eli-Fer Boutique - Resumen de Pedido</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#221010] text-gray-300 font-["Work_Sans"] min-h-screen;
+            }
+            h1, h2, h3, h4 {
+                @apply font-["Noto_Serif"] font-bold text-white;
+            }
+        }
+        :root {
+            --primary: #f20d0d;
+            --dark-burgundy: #221010;
+        }
+        .elegant-border {
+            @apply border border-white/10;
+        }
+        .btn-primary {
+            @apply bg-[#f20d0d] hover:bg-[#d40b0b] text-white font-bold py-5 px-12 transition-all duration-300 tracking-[0.3em] uppercase text-sm shadow-2xl;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "burgundy": "#221010",
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-primary/30">
+    <div class="flex flex-col min-h-screen">
+        <header class="sticky top-0 z-50 bg-[#221010]/95 backdrop-blur-md border-b border-white/5 px-6 lg:px-20 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="Imagenes/logo.png" class="h-10 w-auto" alt="Logo Gui-Eli-Fer">
+                <div class="flex flex-col">
+                    <h2 class="text-white text-2xl font-black tracking-tighter leading-none">GUI-ELI-FER</h2>
+                    <span class="text-[10px] tracking-[0.4em] text-primary font-bold uppercase">Carnicería Boutique</span>
+                </div>
+            </div>
+            <a class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-semibold uppercase tracking-widest" href="index.html">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                Volver al Catálogo
+            </a>
+        </header>
+
+        <main class="flex-1 flex flex-col items-center justify-center px-4 lg:px-20 py-20 max-w-[1200px] mx-auto w-full">
+            <div class="w-full flex justify-between items-end mb-12">
+                <div class="text-left">
+                    <h1 class="text-4xl lg:text-6xl mb-4 tracking-tight">Resumen de su Pedido</h1>
+                    <p class="text-primary italic font-serif text-lg lg:text-xl">Una selección exclusiva de cortes premium para su mesa.</p>
+                </div>
+                <button onclick="clearCart()" class="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-500 hover:text-primary transition-colors flex items-center gap-2 border border-white/10 px-4 py-2 hover:border-primary/40">
+                    <span class="material-symbols-outlined text-sm">delete_sweep</span>
+                    Vaciar Carrito
+                </button>
+            </div>
+
+            <div class="w-full bg-black/20 elegant-border p-8 lg:p-16 shadow-2xl backdrop-blur-sm">
+                <div class="hidden lg:grid grid-cols-12 gap-4 pb-6 border-b border-white/20 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
+                    <div class="col-span-6">Producto</div>
+                    <div class="col-span-2 text-center">Cantidad</div>
+                    <div class="col-span-2 text-right">Precio Unitario</div>
+                    <div class="col-span-2 text-right">Subtotal</div>
+                </div>
+
+                <div id="cart-items-container" class="divide-y divide-white/5">
+                    <!-- Dinámico -->
+                </div>
+
+                <div class="mt-12 pt-12 border-t border-white/20">
+                    <div class="flex flex-col items-center lg:items-end space-y-4">
+                        <div class="flex justify-between w-full lg:w-72 text-gray-400 text-sm tracking-[0.2em] uppercase font-bold">
+                            <span>Subtotal Estimado</span>
+                            <span id="checkout-subtotal" class="text-white">$0</span>
+                        </div>
+                        <div class="flex justify-between w-full lg:w-72 text-gray-400 text-sm tracking-[0.2em] uppercase font-bold">
+                            <span>Envío</span>
+                            <span class="text-primary italic">BONIFICADO</span>
+                        </div>
+                        <div class="flex justify-between items-baseline w-full lg:w-96 pt-6 border-t border-white/5">
+                            <span class="text-white text-xl font-bold tracking-[0.3em] uppercase">Total Estimado *</span>
+                            <span id="checkout-total" class="text-5xl font-bold text-primary">$0</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500 italic mt-4">* El precio final se ajustará según el pesaje exacto al preparar su pedido.</p>
+                    </div>
+                </div>
+
+                <div class="mt-16 flex flex-col items-center">
+                    <button id="confirm-order-btn" class="btn-primary w-full lg:w-auto flex items-center justify-center gap-4 group">
+                        Confirmar Pedido
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">auto_awesome</span>
+                    </button>
+                    <div class="mt-10 flex items-center justify-center gap-3 text-gray-500 text-[11px] uppercase tracking-[0.3em] font-semibold">
+                        <span class="material-symbols-outlined text-sm text-primary">security</span>
+                        Compra Protegida | Garantía de Calidad Gui-Eli-Fer
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-auto border-t border-white/5 bg-black/40 py-12 px-6 lg:px-20">
+            <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <img src="Imagenes/logo.png" class="h-8 w-auto grayscale opacity-50" alt="Logo Gui-Eli-Fer">
+                    <span class="text-white font-black tracking-tighter text-xl">GUI-ELI-FER</span>
+                </div>
+                <div class="flex gap-10 text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold">
+                    <a class="hover:text-primary transition-colors" href="#">Términos</a>
+                    <a class="hover:text-primary transition-colors" href="#">Privacidad</a>
+                    <a class="hover:text-primary transition-colors" href="#">Soporte</a>
+                </div>
+                <div class="text-[10px] text-gray-600 uppercase tracking-widest italic font-serif">
+                    © 2024 Gui-Eli-Fer. Cortes de Autor.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let cart = JSON.parse(sessionStorage.getItem('butchery_cart')) || [];
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('checkout-subtotal');
+            const totalEl = document.getElementById('checkout-total');
+            
+            if (!container) return;
+            
+            container.innerHTML = '';
+            let total = 0;
+
+            if (!cart || cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-500 italic py-20 uppercase tracking-widest">Su selección está vacía</p>';
+                subtotalEl.innerText = "ARS $0";
+                totalEl.innerText = "ARS $0";
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const subtotal = (item.price || 0) * (item.qty || 0);
+                total += subtotal;
+                
+                // Asegurar que la imagen use la ruta local en la carpeta Imagenes
+                let imgSrc = item.img || '';
+                
+                if (imgSrc && typeof imgSrc === 'string') {
+                    if (!imgSrc.startsWith('http') && !imgSrc.startsWith('Imagenes/')) {
+                        imgSrc = 'Imagenes/' + imgSrc;
+                    }
+                } else {
+                    imgSrc = 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800';
+                }
+
+                // Encode URI to handle spaces in filenames correctly
+                const safeImgSrc = encodeURI(imgSrc);
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-center py-8';
+                itemDiv.innerHTML = `
+                    <div class="lg:col-span-6 flex items-center gap-6">
+                        <div class="size-24 lg:size-28 flex-shrink-0 elegant-border overflow-hidden bg-zinc-900">
+                            <img src="${safeImgSrc}" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800'"
+                                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                                 alt="${item.name || 'Producto'}">
+                        </div>
+                        <div>
+                            <h3 class="text-xl lg:text-2xl font-bold uppercase tracking-wide text-white">${item.name || 'Sin Nombre'}</h3>
+                            <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest font-bold italic">Selección Premium</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 flex justify-center items-center gap-4">
+                        <div class="flex items-center gap-4 border border-white/10 px-6 py-2">
+                             <button onclick="changeQty(${index}, -1)" class="text-gray-500 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-sm font-bold">remove</span>
+                            </button>
+                            <span class="text-white font-medium text-lg w-6 text-center">${item.qty || 0}</span>
+                            <button onclick="changeQty(${index}, 1)" class="text-gray-500 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-sm font-bold">add</span>
+                            </button>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-gray-500 hover:text-primary transition-colors p-2" title="Eliminar artículo">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    </div>
+                    <div class="lg:col-span-2 text-center lg:text-right">
+                        <span class="text-gray-400 text-[10px] block lg:hidden uppercase tracking-widest mb-1 font-bold">Unitario</span>
+                        <p class="text-white font-medium">ARS $${(item.price || 0).toLocaleString('es-AR')}</p>
+                    </div>
+                    <div class="lg:col-span-2 text-center lg:text-right">
+                        <span class="text-gray-400 text-[10px] block lg:hidden uppercase tracking-widest mb-1 font-bold">Subtotal</span>
+                        <p class="text-white font-bold text-lg">ARS $${subtotal.toLocaleString('es-AR')}</p>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            subtotalEl.innerText = `ARS $${total.toLocaleString('es-AR')}`;
+            totalEl.innerText = `ARS $${total.toLocaleString('es-AR')}`;
+            
+            sessionStorage.setItem('butchery_cart', JSON.stringify(cart));
+        }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            renderCart();
+        }
+
+        function removeItem(index) {
+            if (confirm('¿Desea eliminar este artículo del resumen?')) {
+                cart.splice(index, 1);
+                renderCart();
+            }
+        }
+
+        function clearCart() {
+            if (confirm('¿Desea vaciar completamente su selección?')) {
+                cart = [];
+                renderCart();
+            }
+        }
+
+        document.getElementById('confirm-order-btn').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Su selección está vacía.');
+                return;
+            }
+
+            const btn = document.getElementById('confirm-order-btn');
+            btn.disabled = true;
+            btn.innerHTML = 'PREPARANDO DATOS...';
+
+            setTimeout(() => {
+                window.location.href = 'datos.html';
+            }, 800);
+        });
+
+        renderCart();
+    </script>
+</body>
+</html>
