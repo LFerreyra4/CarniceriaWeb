@@ -19,7 +19,10 @@
             z-index: 9999 !important;
         }
         main {
-            padding-top: 4rem; /* Reducido para compensar el nuevo alto */
+            padding-top: 5rem; /* Re-ajustado por el logo más grande */
+        }
+        .logo-blend {
+            mix-blend-mode: multiply;
         }
     </style>
 <script id="tailwind-config">
@@ -55,7 +58,7 @@
 <div class="max-w-7xl mx-auto flex items-center justify-between">
 <div class="flex items-center gap-10">
 <div class="flex items-center gap-3">
-<img src="Imagenes/GUIELIFER.jpg" class="h-10 w-auto transition-all" id="header-logo" alt="Logo Gui-Eli-Fer">
+<img src="Imagenes/GUIELIFER.jpg" class="h-16 w-auto transition-all logo-blend" id="header-logo" alt="Logo Gui-Eli-Fer">
 <h1 class="font-display text-xl font-bold tracking-tight text-slate-100 transition-all" id="header-title">Gui-Eli-Fer</h1>
 </div>
 <nav class="hidden md:flex items-center gap-8">
@@ -187,7 +190,7 @@
 <div class="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 <div class="col-span-1 md:col-span-2">
 <div class="flex items-center gap-3 text-primary mb-6">
-<img src="Imagenes/GUIELIFER.jpg" class="h-12 w-auto" alt="Logo Gui-Eli-Fer">
+<img src="Imagenes/GUIELIFER.jpg" class="h-20 w-auto logo-blend" alt="Logo Gui-Eli-Fer">
 <h2 class="font-display text-2xl font-bold tracking-tight text-slate-100">Gui-Eli-Fer</h2>
 </div>
 <p class="text-slate-400 max-w-sm leading-relaxed">
@@ -346,12 +349,12 @@ const products = [
             if (window.scrollY > 50) {
                 header.classList.remove('py-3');
                 header.classList.add('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-10', 'h-8');
+                logo.classList.replace('h-16', 'h-12');
                 title.classList.replace('text-xl', 'text-lg');
             } else {
                 header.classList.add('py-3');
                 header.classList.remove('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-8', 'h-10');
+                logo.classList.replace('h-12', 'h-16');
                 title.classList.replace('text-lg', 'text-xl');
             }
         });
