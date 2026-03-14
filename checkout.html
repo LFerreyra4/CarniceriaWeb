@@ -1,24 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Gui-Eli-Fer Boutique - Resumen de Pedido</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <style type="text/tailwindcss">
         @layer base {
             body {
-                @apply bg-[#221010] text-gray-300 font-["Work_Sans"] min-h-screen;
+                @apply bg-background-dark text-slate-300 font-sans min-h-screen;
             }
             h1, h2, h3, h4 {
-                @apply font-["Noto_Serif"] font-bold text-white;
+                @apply font-display font-bold text-white;
             }
-        }
-        :root {
-            --primary: #f20d0d;
-            --dark-burgundy: #221010;
         }
         .elegant-border {
             @apply border border-white/10;
@@ -30,11 +26,17 @@
     </style>
     <script id="tailwind-config">
         tailwind.config = {
+            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "primary": "#f20d0d",
-                        "burgundy": "#221010",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
                     },
                 },
             },
