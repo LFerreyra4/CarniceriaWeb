@@ -19,7 +19,11 @@
             z-index: 9999 !important;
         }
         main {
-            padding-top: 5rem; /* Re-ajustado por el logo más grande */
+            padding-top: 7rem; /* Aumentado por el logo más grande */
+        }
+        .logo-sharp {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
     </style>
 <script id="tailwind-config">
@@ -55,7 +59,7 @@
 <div class="max-w-7xl mx-auto flex items-center justify-between">
 <div class="flex items-center gap-10">
 <div class="flex items-center gap-3">
-<img src="Imagenes/logo_transparente_v2.png" class="h-16 w-auto transition-all" id="header-logo" alt="Logo Gui-Eli-Fer">
+<img src="Imagenes/logo_transparente_v2.png" class="h-24 w-auto transition-all logo-sharp" id="header-logo" alt="Logo Gui-Eli-Fer">
 <h1 class="font-display text-xl font-bold tracking-tight text-slate-100 transition-all" id="header-title">Gui-Eli-Fer</h1>
 </div>
 <nav class="hidden md:flex items-center gap-8">
@@ -346,12 +350,12 @@ const products = [
             if (window.scrollY > 50) {
                 header.classList.remove('py-3');
                 header.classList.add('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-16', 'h-12');
+                logo.classList.replace('h-24', 'h-16');
                 title.classList.replace('text-xl', 'text-lg');
             } else {
                 header.classList.add('py-3');
                 header.classList.remove('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-12', 'h-16');
+                logo.classList.replace('h-16', 'h-24');
                 title.classList.replace('text-lg', 'text-xl');
             }
         });
