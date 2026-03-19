@@ -137,6 +137,31 @@
     <span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">account_balance</span>
     </label>
     </div>
+    
+    <!-- Cuadro de Datos Bancarios (Oculto por defecto) -->
+    <div id="bank-details-box" class="hidden mt-6 p-6 bg-white/5 border border-primary/20 rounded-2xl animate-in fade-in slide-in-from-top-4 duration-300">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-primary">info</span>
+            <h4 class="font-bold text-slate-100 uppercase text-xs tracking-widest">Datos para Transferencia</h4>
+        </div>
+        <div class="space-y-3 text-sm">
+            <div class="flex justify-between border-b border-white/5 pb-2">
+                <span class="text-slate-500">Banco:</span>
+                <span class="text-slate-200 font-medium">BANCO NACIÓN / MACRO (Ejemplo)</span>
+            </div>
+            <div class="flex justify-between border-b border-white/5 pb-2">
+                <span class="text-slate-500">CBU:</span>
+                <span class="text-slate-200 font-mono">0000003100000000000000</span>
+            </div>
+            <div class="flex justify-between border-b border-white/5 pb-2">
+                <span class="text-slate-500">Alias:</span>
+                <span class="text-slate-200 font-medium italic">GUIELIFER.BOUTIQUE</span>
+            </div>
+            <div class="mt-4 p-3 bg-primary/10 rounded-lg text-[11px] text-primary font-bold uppercase leading-tight">
+                ⚠️ IMPORTANTE: POR FAVOR, ADJUNTE EL COMPROBANTE UNA VEZ REALIZADA LA TRANSFERENCIA AL ENVIAR EL WHATSAPP.
+            </div>
+        </div>
+    </div>
     </div>
     <!-- Método de Entrega -->
     <div>
@@ -172,6 +197,14 @@
         <p class="text-xl text-slate-400 max-w-lg mx-auto mb-10">
             Hemos preparado tu ticket boutique. Ahora solo falta enviarlo por WhatsApp para coordinar el pesaje y la entrega.
         </p>
+        
+        <!-- Recordatorio de Datos Bancarios en Éxito -->
+        <div id="success-bank-info" class="hidden mb-10 p-6 bg-white/5 border border-white/10 rounded-2xl w-full max-w-md text-left">
+            <p class="text-[10px] text-primary font-bold uppercase mb-3">Recordatorio de Pago:</p>
+            <p class="text-xs text-slate-300 mb-2">Alias: <span class="text-white font-mono font-bold">GUIELIFER.BOUTIQUE</span></p>
+            <p class="text-xs text-slate-300">No olvides adjuntar el comprobante en el chat de WhatsApp.</p>
+        </div>
+
         <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
             <a id="whatsapp-link" href="#" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-green-900/20">
                 <span class="material-symbols-outlined">send</span>
@@ -264,6 +297,19 @@
         totalEl.innerText = `ARS $${total.toLocaleString('es-AR')}`;
     }
 
+    // Lógica para mostrar/ocultar banco
+    document.querySelectorAll('input[name="payment"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const isTransfer = e.target.parentElement.innerText.includes('Transferencia');
+            const bankBox = document.getElementById('bank-details-box');
+            if (isTransfer) {
+                bankBox.classList.remove('hidden');
+            } else {
+                bankBox.classList.add('hidden');
+            }
+        });
+    });
+
     document.getElementById('final-confirm-btn').addEventListener('click', () => {
         // Validación básica
         const inputs = document.querySelectorAll('input[type="text"]');
@@ -339,6 +385,12 @@
             // Opcional: Ocultar sidebar en móviles para dar foco al éxito
             if (window.innerWidth < 1024) {
                 document.querySelector('main > div.lg\\:col-span-4').classList.add('hidden');
+            }
+
+            // Mostrar datos bancarios en éxito si se seleccionó transferencia
+            const currentPayment = document.querySelector('input[name="payment"]:checked').parentElement.innerText;
+            if (currentPayment.includes('Transferencia')) {
+                document.getElementById('success-bank-info').classList.remove('hidden');
             }
 
             sessionStorage.removeItem('butchery_cart');
