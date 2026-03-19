@@ -23,6 +23,9 @@
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
+        .btn-primary {
+            @apply px-12 py-5 bg-primary text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-primary/20 hover:bg-red-700 active:scale-95;
+        }
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -117,16 +120,16 @@
         <footer class="mt-auto border-t border-white/5 bg-black/40 py-12 px-6 lg:px-20">
             <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex items-center gap-3">
-                    <img src="Imagenes/logo.png" class="h-8 w-auto grayscale opacity-50" alt="Logo Gui-Eli-Fer">
+                    <img src="Imagenes/logo_transparente_v2.png" class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity" alt="Logo Gui-Eli-Fer">
                     <span class="text-white font-black tracking-tighter text-xl">GUI-ELI-FER</span>
                 </div>
                 <div class="flex gap-10 text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold">
-                    <a class="hover:text-primary transition-colors" href="#">Términos</a>
-                    <a class="hover:text-primary transition-colors" href="#">Privacidad</a>
-                    <a class="hover:text-primary transition-colors" href="#">Soporte</a>
+                    <a class="hover:text-primary transition-colors" href="index.html">Inicio</a>
+                    <a class="hover:text-primary transition-colors" href="index.html#catalogo">Catálogo</a>
+                    <a class="hover:text-primary transition-colors" href="index.html#historia">Historia</a>
                 </div>
                 <div class="text-[10px] text-gray-600 uppercase tracking-widest italic font-serif">
-                    © 2024 Gui-Eli-Fer. Cortes de Autor.
+                    © 2024 Gui-Eli-Fer. Selección Boutique.
                 </div>
             </div>
         </footer>

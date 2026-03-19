@@ -271,37 +271,53 @@
 
         const btn = document.getElementById('final-confirm-btn');
         btn.disabled = true;
-        btn.innerHTML = 'PROCESANDO...';
+        btn.innerHTML = 'GENERANDO TICKET...';
+
+        // Recopilar datos para el mensaje
+        const name = document.querySelector('input[placeholder="Ej. Juan"]').value;
+        const address = `${document.querySelector('input[placeholder="Ej. Av. Rivadavia"]').value} ${document.querySelector('input[placeholder="Ej. 1234, 2B"]').value}`;
+        const total = document.getElementById('side-total').innerText;
+        
+        let message = `*NUEVO PEDIDO BOUTIQUE - GUI-ELI-FER*\n\n`;
+        message += `*Cliente:* ${name}\n`;
+        message += `*Entrega:* ${address}\n`;
+        message += `*WhatsApp:* ${phoneVal}\n\n`;
+        message += `*DETALLE DEL PEDIDO:*\n`;
+        
+        cart.forEach(item => {
+            message += `- ${item.qty} x ${item.name} (ARS $${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+        });
+        
+        message += `\n*TOTAL ESTIMADO:* ${total}\n\n`;
+        message += `_Nota: El precio final se ajustará según el pesaje exacto._`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappNumber = "5493572502450";
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
         setTimeout(() => {
-            alert('¡PEDIDO RECIBIDO! Prepararemos sus productos y los pesaremos con precisión. En breve le enviaremos por WhatsApp el TICKET FINAL con los pesos exactos para coordinar la entrega y el pago. Gracias por elegir Gui-Eli-Fer.');
+            alert('¡PEDIDO GENERADO! Serás redirigido a WhatsApp para enviar el ticket final. Una vez enviado, prepararemos tu pedido con pesaje exacto. ¡Gracias!');
             sessionStorage.removeItem('butchery_cart');
-            window.location.href = 'index.html';
-        }, 2500);
+            window.location.href = whatsappUrl;
+        }, 1500);
     });
 
     renderSideSummary();
 </script>
 <!-- Footer -->
 <footer class="mt-24 border-t border-white/5 pt-12 pb-8 flex flex-col md:flex-row justify-between items-center gap-6">
-<div class="flex items-center gap-2 opacity-50">
-<h2 class="text-sm font-bold text-slate-100 uppercase">Gui-Eli-Fer</h2>
-<span class="text-slate-600">|</span>
-<p class="text-xs text-slate-400 tracking-widest uppercase">Tradición en Carne</p>
-</div>
-<div class="flex gap-8">
-<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Términos</a>
-<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Privacidad</a>
-<a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="#">Soporte</a>
-</div>
-<div class="flex gap-4">
-<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">share</span>
-</div>
-<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer group">
-<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">call</span>
-</div>
-</div>
+    <div class="flex items-center gap-3">
+        <img src="Imagenes/logo_transparente_v2.png" class="h-10 w-auto opacity-50 hover:opacity-100 transition-opacity" alt="Logo Gui-Eli-Fer">
+        <h2 class="text-sm font-bold text-slate-100 uppercase tracking-tighter">Gui-Eli-Fer</h2>
+    </div>
+    <div class="flex gap-8">
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="index.html">Inicio</a>
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="index.html#catalogo">Catálogo</a>
+        <a class="text-xs text-slate-500 hover:text-primary uppercase tracking-widest transition-colors" href="index.html#historia">Historia</a>
+    </div>
+    <div class="flex gap-4">
+        <p class="text-[10px] text-slate-600 uppercase tracking-widest italic font-serif">© 2024 Gui-Eli-Fer. Selección Boutique.</p>
+    </div>
 </footer>
 </div>
 </body></html>
