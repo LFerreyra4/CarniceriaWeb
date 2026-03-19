@@ -274,13 +274,19 @@
         btn.innerHTML = 'GENERANDO TICKET...';
 
         // Recopilar datos para el mensaje
-        const name = document.querySelector('input[placeholder="Ej. Juan"]').value;
+        const firstName = document.querySelector('input[placeholder="Ej. Juan"]').value;
+        const lastName = document.querySelector('input[placeholder="Ej. Pérez"]').value;
         const address = `${document.querySelector('input[placeholder="Ej. Av. Rivadavia"]').value} ${document.querySelector('input[placeholder="Ej. 1234, 2B"]').value}`;
         const total = document.getElementById('side-total').innerText;
         
+        // Obtener métodos seleccionados
+        const paymentMethod = document.querySelector('input[name="payment"]:checked').parentElement.querySelector('span.font-bold').innerText;
+        const deliveryMethod = document.querySelector('input[name="delivery"]:checked').parentElement.querySelector('span.font-bold').innerText;
+
         let message = `*NUEVO PEDIDO BOUTIQUE - GUI-ELI-FER*\n\n`;
-        message += `*Cliente:* ${name}\n`;
-        message += `*Entrega:* ${address}\n`;
+        message += `*Cliente:* ${firstName} ${lastName}\n`;
+        message += `*Entrega:* ${address} (${deliveryMethod})\n`;
+        message += `*Pago:* ${paymentMethod}\n`;
         message += `*WhatsApp:* ${phoneVal}\n\n`;
         message += `*DETALLE DEL PEDIDO:*\n`;
         
@@ -289,7 +295,8 @@
         });
         
         message += `\n*TOTAL ESTIMADO:* ${total}\n\n`;
-        message += `_Nota: El precio final se ajustará según el pesaje exacto._`;
+        message += `*AVISO IMPORTANTE:*\n`;
+        message += `_Al finalizar con la preparación del pedido se adjuntará la foto con los kg totales de los productos seleccionados en balanza. Esto es para mostrarle el desvío que se puede generar en los kgs y el precio total final del pedido._`;
 
         const encodedMessage = encodeURIComponent(message);
         const whatsappNumber = "5493572502450";
