@@ -78,88 +78,114 @@
 <h2 class="text-4xl font-bold mb-2">Finalizar Pedido</h2>
 <p class="text-slate-400">Complete los detalles de entrega para que su selección boutique llegue a su mesa.</p>
 </div>
-<section class="space-y-8">
-<div>
-<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Información de Entrega</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Nombre</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Juan" type="text"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Apellido</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Pérez" type="text"/>
-</div>
-<div class="flex flex-col gap-2 md:col-span-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Teléfono / WhatsApp (Obligatorio)</label>
-<input id="customer-phone" class="form-input-custom rounded-lg p-4" placeholder="Ej. +54 9 11 1234-5678" type="text"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Calle</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="Ej. Av. Rivadavia" type="text"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Número / Piso</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="Ej. 1234, 2B" type="text"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Localidad</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="Ciudad o barrio" type="text"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Código Postal</label>
-<input class="form-input-custom rounded-lg p-4" placeholder="C1000" type="text"/>
-</div>
-</div>
-</div>
-<!-- Métodos -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
-<!-- Método de Pago -->
-<div>
-<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Pago</h3>
-<div class="space-y-4">
-<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
-<input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="payment" type="radio"/>
-<div class="flex flex-col">
-<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Efectivo al entregar</span>
-<span class="text-xs text-slate-400">Pague en el momento de la recepción</span>
-</div>
-<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">payments</span>
-</label>
-<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
-<input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="payment" type="radio"/>
-<div class="flex flex-col">
-<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Transferencia Bancaria</span>
-<span class="text-xs text-slate-400">Envío de comprobante vía WhatsApp</span>
-</div>
-<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">account_balance</span>
-</label>
-</div>
-</div>
-<!-- Método de Entrega -->
-<div>
-<h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Entrega</h3>
-<div class="space-y-4">
-<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
-<input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="delivery" type="radio"/>
-<div class="flex flex-col">
-<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Envío a domicilio</span>
-<span class="text-xs text-slate-400">Reparto refrigerado premium</span>
-</div>
-<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">local_shipping</span>
-</label>
-<label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
-<input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="delivery" type="radio"/>
-<div class="flex flex-col">
-<span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Retiro en local</span>
-<span class="text-xs text-slate-400">Take Away sin esperas</span>
-</div>
-<span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">store</span>
-</label>
-</div>
-</div>
-</div>
-</section>
+<section id="form-section" class="space-y-8">
+    <!-- Formulario existente... -->
+    <div>
+    <h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Información de Entrega</h3>
+    <!-- ... (bloque de inputs) ... -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Nombre</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="Ej. Juan" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Apellido</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="Ej. Pérez" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2 md:col-span-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Teléfono / WhatsApp (Obligatorio)</label>
+    <input id="customer-phone" class="form-input-custom rounded-lg p-4" placeholder="Ej. +54 9 11 1234-5678" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Calle</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="Ej. Av. Rivadavia" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Número / Piso</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="Ej. 1234, 2B" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Localidad</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="Ciudad o barrio" type="text"/>
+    </div>
+    <div class="flex flex-col gap-2">
+    <label class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Código Postal</label>
+    <input class="form-input-custom rounded-lg p-4" placeholder="C1000" type="text"/>
+    </div>
+    </div>
+    </div>
+    <!-- Métodos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+    <!-- Método de Pago -->
+    <div>
+    <h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Pago</h3>
+    <div class="space-y-4">
+    <label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+    <input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="payment" type="radio"/>
+    <div class="flex flex-col">
+    <span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Efectivo al entregar</span>
+    <span class="text-xs text-slate-400">Pague en el momento de la recepción</span>
+    </div>
+    <span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">payments</span>
+    </label>
+    <label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+    <input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="payment" type="radio"/>
+    <div class="flex flex-col">
+    <span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Transferencia Bancaria</span>
+    <span class="text-xs text-slate-400">Envío de comprobante vía WhatsApp</span>
+    </div>
+    <span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">account_balance</span>
+    </label>
+    </div>
+    </div>
+    <!-- Método de Entrega -->
+    <div>
+    <h3 class="text-xl font-bold mb-6 border-l-4 border-primary pl-4">Método de Entrega</h3>
+    <div class="space-y-4">
+    <label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+    <input checked="" class="w-5 h-5 text-primary border-primary bg-transparent focus:ring-primary" name="delivery" type="radio"/>
+    <div class="flex flex-col">
+    <span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Envío a domicilio</span>
+    <span class="text-xs text-slate-400">Reparto refrigerado premium</span>
+    </div>
+    <span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary opacity-60">local_shipping</span>
+    </label>
+    <label class="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/0 has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-all cursor-pointer group">
+    <input class="w-5 h-5 text-primary border-slate-600 bg-transparent focus:ring-primary" name="delivery" type="radio"/>
+    <div class="flex flex-col">
+    <span class="font-bold text-slate-100 group-has-[:checked]:text-primary transition-colors">Retiro en local</span>
+    <span class="text-xs text-slate-400">Take Away sin esperas</span>
+    </div>
+    <span class="material-symbols-outlined ml-auto text-slate-500 group-has-[:checked]:text-primary transition-colors">store</span>
+    </label>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- Pantalla de Éxito (Oculta por defecto) -->
+    <section id="success-screen" class="hidden flex-col items-center justify-center py-20 text-center animate-in fade-in zoom-in duration-500">
+        <div class="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-8">
+            <span class="material-symbols-outlined text-5xl">check_circle</span>
+        </div>
+        <h2 class="text-5xl font-bold mb-4">¡Pedido Generado!</h2>
+        <p class="text-xl text-slate-400 max-w-lg mx-auto mb-10">
+            Hemos preparado tu ticket boutique. Ahora solo falta enviarlo por WhatsApp para coordinar el pesaje y la entrega.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
+            <a id="whatsapp-link" href="#" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-green-900/20">
+                <span class="material-symbols-outlined">send</span>
+                Enviar por WhatsApp
+            </a>
+            <a href="index.html" class="flex-1 bg-white/10 hover:bg-white/20 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all">
+                <span class="material-symbols-outlined text-lg">home</span>
+                Volver al Inicio
+            </a>
+        </div>
+        <p class="mt-8 text-xs text-slate-500 uppercase tracking-widest font-bold">
+            Gracias por elegir Gui-Eli-Fer
+        </p>
+    </section>
 </div>
 <!-- Right Side: Order Summary Card -->
 <!-- Order Summary Sidebar -->
@@ -303,9 +329,22 @@
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
         setTimeout(() => {
-            alert('¡PEDIDO GENERADO! Serás redirigido a WhatsApp para enviar el ticket final. Una vez enviado, prepararemos tu pedido con pesaje exacto. ¡Gracias!');
+            // Ocultar formulario y mostrar pantalla de éxito
+            document.getElementById('form-section').classList.add('hidden');
+            document.querySelector('main > div.lg\\:col-span-8 > div.mb-10').classList.add('hidden'); // Ocultar título anterior
+            document.getElementById('whatsapp-link').href = whatsappUrl;
+            document.getElementById('success-screen').classList.remove('hidden');
+            document.getElementById('success-screen').classList.add('flex');
+            
+            // Opcional: Ocultar sidebar en móviles para dar foco al éxito
+            if (window.innerWidth < 1024) {
+                document.querySelector('main > div.lg\\:col-span-4').classList.add('hidden');
+            }
+
             sessionStorage.removeItem('butchery_cart');
-            window.location.href = whatsappUrl;
+            
+            // Desplazar al inicio para ver el mensaje de éxito
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 1500);
     });
 
