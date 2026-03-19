@@ -144,18 +144,24 @@
             <span class="material-symbols-outlined text-primary">info</span>
             <h4 class="font-bold text-slate-100 uppercase text-xs tracking-widest">Datos para Transferencia</h4>
         </div>
-        <div class="space-y-3 text-sm">
-            <div class="flex justify-between border-b border-white/5 pb-2">
-                <span class="text-slate-500">Banco:</span>
-                <span class="text-slate-200 font-medium">BANCO NACIÓN / MACRO (Ejemplo)</span>
+        <div class="space-y-6 text-sm">
+            <!-- Opción 1: Mercado Pago -->
+            <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                <p class="text-[10px] text-primary font-bold uppercase mb-2 tracking-widest">Opción 1: Mercado Pago</p>
+                <div class="space-y-2">
+                    <p class="text-xs text-slate-400">Alias: <span class="text-white font-mono font-bold">fernando.353.rugby</span></p>
+                    <p class="text-xs text-slate-400">CVU: <span class="text-white font-mono font-bold">0000003100067008868551</span></p>
+                    <p class="text-xs text-slate-400">Titular: <span class="text-white font-medium">Fernando Gabriel Ferreyra</span></p>
+                </div>
             </div>
-            <div class="flex justify-between border-b border-white/5 pb-2">
-                <span class="text-slate-500">CBU:</span>
-                <span class="text-slate-200 font-mono">0000003100000000000000</span>
-            </div>
-            <div class="flex justify-between border-b border-white/5 pb-2">
-                <span class="text-slate-500">Alias:</span>
-                <span class="text-slate-200 font-medium italic">GUIELIFER.BOUTIQUE</span>
+            <!-- Opción 2: Banco Nación -->
+            <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                <p class="text-[10px] text-primary font-bold uppercase mb-2 tracking-widest">Opción 2: Banco Nación</p>
+                <div class="space-y-2">
+                    <p class="text-xs text-slate-400">Alias: <span class="text-white font-mono font-bold">guielifer</span></p>
+                    <p class="text-xs text-slate-400">CBU: <span class="text-white font-mono font-bold">0110611020061100743169</span></p>
+                    <p class="text-xs text-slate-400">CUIL: <span class="text-white font-mono font-bold">20263693532</span></p>
+                </div>
             </div>
             <div class="mt-4 p-3 bg-primary/10 rounded-lg text-[11px] text-primary font-bold uppercase leading-tight">
                 ⚠️ IMPORTANTE: POR FAVOR, ADJUNTE EL COMPROBANTE UNA VEZ REALIZADA LA TRANSFERENCIA AL ENVIAR EL WHATSAPP.
@@ -200,9 +206,12 @@
         
         <!-- Recordatorio de Datos Bancarios en Éxito -->
         <div id="success-bank-info" class="hidden mb-10 p-6 bg-white/5 border border-white/10 rounded-2xl w-full max-w-md text-left">
-            <p class="text-[10px] text-primary font-bold uppercase mb-3">Recordatorio de Pago:</p>
-            <p class="text-xs text-slate-300 mb-2">Alias: <span class="text-white font-mono font-bold">GUIELIFER.BOUTIQUE</span></p>
-            <p class="text-xs text-slate-300">No olvides adjuntar el comprobante en el chat de WhatsApp.</p>
+            <p class="text-[10px] text-primary font-bold uppercase mb-3 tracking-widest">Datos para el pago:</p>
+            <div class="space-y-3">
+                <p class="text-[11px] text-slate-300">MP Alias: <span class="text-white font-mono font-bold">fernando.353.rugby</span></p>
+                <p class="text-[11px] text-slate-300">B. Nación Alias: <span class="text-white font-mono font-bold">guielifer</span></p>
+            </div>
+            <p class="text-[10px] text-slate-500 mt-4 italic">No olvides adjuntar el comprobante en el chat de WhatsApp.</p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
