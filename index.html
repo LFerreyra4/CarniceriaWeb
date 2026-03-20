@@ -210,11 +210,12 @@
 <div class="max-w-7xl mx-auto px-6 lg:px-20 border-t border-primary/5 pt-8 text-center text-slate-500 text-sm">
                 © 2024 Gui-Eli-Fer Butchery. Todos los derechos reservados.
             </div>
-    <!-- Firebase SDK & Real-time Sync -->
+    <!-- App logic & Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // CONFIGURACIÓN
         const firebaseConfig = {
             apiKey: "AIzaSyAz0YkcOIPAySQHueCNWp1h56FdzPQNo8E",
             authDomain: "carniceria-web-ebb84.firebaseapp.com",
@@ -228,66 +229,28 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        window.initCatalog = async function() {
-            // 1. CARGA INSTANTÁNEA (Desde el archivo local mientras llega la nube)
-            try {
-                const response = await fetch('productos.json');
-                const localData = await response.json();
-                if (!window.products || window.products.length === 0) {
-                    window.products = localData;
-                    if (typeof window.renderCatalog === 'function') {
-                        window.renderCatalog();
-                    }
-                }
-            } catch (e) { console.warn("Local data load failed, waiting for cloud..."); }
+        // ESTADO GLOBAL
+        window.products = [];
+        window.quantities = {};
+        window.cart = JSON.parse(sessionStorage.getItem('butchery_cart') || '[]');
+        window.currentCategory = 'vaca';
+        window.currentSearch = '';
 
-            // 2. CARGA EN SEGUNDO PLANO (Sincronización real con Firebase)
-            try {
-                const querySnapshot = await getDocs(collection(db, "productos"));
-                if (!querySnapshot.empty) {
-                    const cloudProducts = [];
-                    querySnapshot.forEach((doc) => {
-                        cloudProducts.push({ id: doc.id, ...doc.data() });
-                    });
-                    
-                    // Solo re-renderizar si hubo cambios o si no había datos aún
-                    window.products = cloudProducts;
-                    if (typeof window.renderCatalog === 'function') {
-                        window.renderCatalog();
-                    }
-                }
-            } catch (error) {
-                console.error("Firebase Sync Delayed:", error);
-            }
-        }
-
-        // Trigger load
-        window.initCatalog();
-    </script>
-    <script>
-        // Global State (Initial empty, populated by Firebase/JSON)
-        // window.products ya está definido como [] en el script de arriba
-        let quantities = {}; // Global tracking for product card quantities
-
-        sessionStorage.removeItem('butchery_cart');
-        let cart = [];
-        let currentCategory = 'vaca';
-        let currentSearch = '';
-
-        function formatQty(qty) {
-            // Solo mostrar decimales si no es un entero
+        // FUNCIONES DE APOYO
+        window.formatQty = (qty) => {
             return qty.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 });
-        }
+        };
 
-        function renderCatalog() {
+        window.renderCatalog = function() {
             const container = document.getElementById('catalog-container');
+            if (!container) return;
             container.innerHTML = '';
             
-            const filtered = products.filter(p => {
-                const matchesCategory = p.category === currentCategory;
-                const matchesSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
-                                    p.desc.toLowerCase().includes(currentSearch.toLowerCase());
-                const isAvailable = p.stock !== false; // Solo mostrar si no está explícitamente en false
+            const filtered = window.products.filter(p => {
+                const matchesCategory = p.category === window.currentCategory;
+                const matchesSearch = p.name.toLowerCase().includes(window.currentSearch.toLowerCase()) || 
+                                    p.desc.toLowerCase().includes(window.currentSearch.toLowerCase());
+                const isAvailable = p.stock !== false;
                 return matchesCategory && matchesSearch && isAvailable;
             });
 
@@ -322,7 +285,7 @@
                             </div>
                             <button onclick="increment('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">add</span></button>
                         </div>
-                        <button onclick="addToCart('${p.id}', '${p.name}', ${p.price})" class="w-full py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-colors">
+                        <button onclick="addToCart('${p.id}', '${p.name}', ${p.price}, event)" class="w-full py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-colors">
                             <span class="material-symbols-outlined text-lg">add_shopping_cart</span>
                             Agregar
                         </button>
@@ -330,102 +293,136 @@
                 `;
                 container.appendChild(card);
             });
-        }
+        };
 
-        function handleSearch() {
-            currentSearch = document.getElementById('product-search').value;
-            renderCatalog();
-        }
+        window.increment = (id) => {
+            if (!window.quantities[id]) window.quantities[id] = 1;
+            window.quantities[id] += 0.5;
+            const el = document.getElementById(`qty-${id}`);
+            if (el) el.innerText = window.formatQty(window.quantities[id]);
+        };
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            // Update buttons
+        window.decrement = (id) => {
+            if (!window.quantities[id]) window.quantities[id] = 1;
+            if (window.quantities[id] > 1) {
+                window.quantities[id] -= 0.5;
+                const el = document.getElementById(`qty-${id}`);
+                if (el) el.innerText = window.formatQty(window.quantities[id]);
+            }
+        };
+
+        window.addToCart = (id, name, price, event) => {
+            const qty = window.quantities[id] || 1;
+            const product = window.products.find(p => p.id === id);
+            const existingItem = window.cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.qty += qty;
+            } else {
+                window.cart.push({ id, name, price, qty, img: product?.img || '' });
+            }
+            
+            window.updateCartUI();
+            
+            // Reset local UI
+            window.quantities[id] = 1;
+            const el = document.getElementById(`qty-${id}`);
+            if (el) el.innerText = 1;
+
+            // Feedback
+            if (event && event.currentTarget) {
+                const btn = event.currentTarget;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '¡Agregado!';
+                btn.classList.replace('bg-primary', 'bg-green-600');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-primary');
+                }, 2000);
+            }
+        };
+
+        window.updateCartUI = () => {
+            const totalItems = window.cart.reduce((acc, item) => acc + item.qty, 0);
+            const totalPrice = window.cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            
+            const countEl = document.getElementById('header-cart-count');
+            const descEl = document.getElementById('footer-cart-desc');
+            const totalEl = document.getElementById('footer-cart-total');
+
+            if (countEl) countEl.innerText = window.cart.length;
+            if (descEl) descEl.innerText = `${window.formatQty(totalItems)} kg de cortes reservados`;
+            if (totalEl) totalEl.innerText = `ARS $${totalPrice.toLocaleString('es-AR')} *`;
+            
+            sessionStorage.setItem('butchery_cart', JSON.stringify(window.cart));
+        };
+
+        window.filterCategory = (cat) => {
+            window.currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => {
                 btn.classList.remove('bg-primary', 'text-white');
                 btn.classList.add('border-primary/30', 'text-slate-300');
             });
             const activeBtn = document.getElementById('btn-' + cat);
-            activeBtn.classList.remove('border-primary/30', 'text-slate-300');
-            activeBtn.classList.add('bg-primary', 'text-white');
-            
-            renderCatalog();
-        }
-
-        function updateCartUI() {
-            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-            
-            document.getElementById('header-cart-count').innerText = cart.length;
-            document.getElementById('footer-cart-desc').innerText = `${formatQty(totalItems)} kg de cortes reservados`;
-            document.getElementById('footer-cart-total').innerText = `ARS $${totalPrice.toLocaleString('es-AR')} *`;
-            
-            sessionStorage.setItem('butchery_cart', JSON.stringify(cart));
-        }
-
-        function increment(id) {
-            if (!quantities[id]) quantities[id] = 1;
-            quantities[id] += 0.5;
-            document.getElementById(`qty-${id}`).innerText = formatQty(quantities[id]);
-        }
-
-        function decrement(id) {
-            if (!quantities[id]) quantities[id] = 1;
-            if (quantities[id] > 1) {
-                quantities[id] -= 0.5;
-                document.getElementById(`qty-${id}`).innerText = formatQty(quantities[id]);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-primary/30', 'text-slate-300');
+                activeBtn.classList.add('bg-primary', 'text-white');
             }
-        }
+            window.renderCatalog();
+        };
 
-        function addToCart(id, name, price) {
-            const qty = quantities[id] || 1; // Use the stored quantity, default to 1 if not set
-            const existingItem = cart.find(item => item.id === id);
-            
-            const product = products.find(p => p.id === id);
-            
-            if (existingItem) {
-                existingItem.qty += qty;
-                existingItem.img = product.img;
-            } else {
-                cart.push({ id, name, price, qty, img: product.img });
+        window.handleSearch = () => {
+            const el = document.getElementById('product-search');
+            if (el) {
+                window.currentSearch = el.value;
+                window.renderCatalog();
             }
-            
-            updateCartUI();
-            
-            // Re-set display qty and memory to 1 after adding
-            quantities[id] = 1;
-            document.getElementById(`qty-${id}`).innerText = 1;
+        };
 
-            // Simple visual feedback
-            const btn = event.currentTarget;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '¡Agregado!';
-            btn.classList.replace('bg-primary', 'bg-green-600');
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.replace('bg-green-600', 'bg-primary');
-            }, 2000);
+        // CARGA DE DATOS
+        async function init() {
+            // 1. Local
+            try {
+                const res = await fetch('productos.json');
+                window.products = await res.json();
+                window.renderCatalog();
+            } catch (e) { console.error("Local Load Failed"); }
+
+            // 2. Cloud
+            try {
+                const querySnapshot = await getDocs(collection(db, "productos"));
+                if (!querySnapshot.empty) {
+                    const cloud = [];
+                    querySnapshot.forEach(doc => cloud.push({ id: doc.id, ...doc.data() }));
+                    window.products = cloud;
+                    window.renderCatalog();
+                }
+            } catch (e) { console.warn("Cloud sync delayed..."); }
         }
 
-        // Initialize UI
-        // La carga inicial ahora la maneja el script type="module" arriba via window.initCatalog()
+        // LISTENERS
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
+            if (!header) return;
             const logo = document.getElementById('header-logo');
             const title = document.getElementById('header-title');
             
             if (window.scrollY > 50) {
-                header.classList.remove('py-3');
                 header.classList.add('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-24', 'h-16');
-                title.classList.replace('text-xl', 'text-lg');
+                header.classList.remove('py-3');
+                if (logo) logo.classList.replace('h-24', 'h-16');
+                if (title) title.classList.replace('text-xl', 'text-lg');
             } else {
                 header.classList.add('py-3');
                 header.classList.remove('py-2', 'bg-background-dark/95', 'shadow-2xl');
-                logo.classList.replace('h-16', 'h-24');
-                title.classList.replace('text-lg', 'text-xl');
+                if (logo) logo.classList.replace('h-16', 'h-24');
+                if (title) title.classList.replace('text-lg', 'text-xl');
             }
         });
 
-        updateCartUI();
+        // INICIO
+        init();
+        window.updateCartUI();
     </script>
+</body></html>
 </body></html>
