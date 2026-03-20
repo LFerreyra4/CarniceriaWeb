@@ -250,20 +250,20 @@
                     querySnapshot.forEach((doc) => {
                         cloudProducts.push({ id: doc.id, ...doc.data() });
                     });
-                    window.productos_data = cloudProducts;
-                    window.renderProducts();
+                    window.products = cloudProducts; // Usar 'products' para consistencia
+                    window.renderCatalog();
                 } else {
                     // Fallback a productos.json si Firebase está vacío
                     const response = await fetch('productos.json');
-                    window.productos_data = await response.json();
-                    window.renderProducts();
+                    window.products = await response.json();
+                    window.renderCatalog();
                 }
             } catch (error) {
                 console.error("Firebase Error:", error);
                 // Fallback de emergencia
                 const response = await fetch('productos.json');
-                window.productos_data = await response.json();
-                window.renderProducts();
+                window.products = await response.json();
+                window.renderCatalog();
             }
         }
     </script>
