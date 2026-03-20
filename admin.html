@@ -156,12 +156,12 @@
                         });
                         document.getElementById('stat-api').innerText = "Online (En Vivo)";
                         document.getElementById('stat-api').classList.replace('text-slate-400', 'text-green-500');
+                        document.getElementById('seed-banner').classList.add('hidden');
                         renderList();
                         document.getElementById('stat-total').innerText = products.length;
-                    } else if (products.length === 0) {
-                        document.getElementById('stat-api').innerText = "Base vacía";
-                    } else {
-                        document.getElementById('stat-api').innerText = "Sincronizado";
+                    } else if (products.length > 0) {
+                        document.getElementById('stat-api').innerText = "Nube Vacía";
+                        document.getElementById('seed-banner').classList.remove('hidden');
                     }
                 }, (error) => {
                     console.error("Firestore Error:", error);
