@@ -147,7 +147,10 @@
                     <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover" alt="${p.name}">
                     <div class="flex-1">
                         <h3 class="font-bold text-sm text-slate-100">${p.name}</h3>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-widest">${p.category}</p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[8px] text-slate-500 uppercase tracking-widest">${p.category}</span>
+                            ${p.stock === false ? '<span class="text-[8px] bg-primary/20 text-primary px-1 rounded font-bold uppercase">Pausado</span>' : ''}
+                        </div>
                     </div>
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1">

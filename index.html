@@ -236,7 +236,8 @@
                 const matchesCategory = p.category === currentCategory;
                 const matchesSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
                                     p.desc.toLowerCase().includes(currentSearch.toLowerCase());
-                return matchesCategory && matchesSearch;
+                const isAvailable = p.stock !== false; // Solo mostrar si no está explícitamente en false
+                return matchesCategory && matchesSearch && isAvailable;
             });
 
             if (filtered.length === 0) {
