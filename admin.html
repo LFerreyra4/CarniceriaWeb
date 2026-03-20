@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Admin Gui-Eli-Fer | Panel de Control</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Noto Sans', sans-serif; background-color: #150808; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .form-input-custom { background: #000; border: 1px solid #333; color: #fff; text-align: right; font-weight: bold; }
+        .form-input-custom:focus { border-color: #f20d0d; ring: 1px solid #f20d0d; }
+    </style>
+</head>
+<body class="text-slate-100 pb-32">
+    <!-- Header -->
+    <header class="p-6 border-b border-white/10 flex items-center justify-between sticky top-0 bg-[#150808]/90 backdrop-blur-md z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span class="material-symbols-outlined text-white">settings_account_box</span>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg leading-tight uppercase tracking-tighter">Admin Boutique</h1>
+                <p class="text-[10px] text-primary font-bold uppercase tracking-widest">Gestionar Precios</p>
+            </div>
+        </div>
+        <button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400">
+            <span class="material-symbols-outlined">logout</span>
+        </button>
+    </header>
+
+    <main class="p-6 space-y-8 max-w-lg mx-auto">
+        <!-- Resumen Rápido -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glass p-4 rounded-2xl">
+                <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Cortes Totales</p>
+                <p class="text-2xl font-bold">11</p>
+            </div>
+            <div class="glass p-4 rounded-2xl">
+                <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Último Cambio</p>
+                <p class="text-sm font-bold text-primary">Hace 2h</p>
+            </div>
+        </div>
+
+        <!-- Lista de Productos -->
+        <div class="space-y-4">
+            <h2 class="text-xs uppercase tracking-[0.3em] font-bold text-slate-500 px-1">Catálogo de Cortes</h2>
+            
+            <!-- Card 1 -->
+            <div class="glass rounded-2xl p-4 flex items-center gap-4">
+                <img src="Imagenes/ojo_de_bife.jpg" class="w-16 h-16 rounded-xl object-cover" alt="Ojo de Bife">
+                <div class="flex-1">
+                    <h3 class="font-bold text-sm">Ojo de Bife</h3>
+                    <p class="text-[10px] text-slate-500 uppercase">Categoría: Vaca</p>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-[10px] text-slate-400">ARS $</span>
+                        <input type="number" value="8500" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-9 h-5 bg-white/10 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                        <span class="ml-2 text-[10px] font-bold text-slate-400 uppercase peer-checked:text-primary">Stock</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="glass rounded-2xl p-4 flex items-center gap-4">
+                <img src="Imagenes/costillar vaca.png" class="w-16 h-16 rounded-xl object-cover" alt="Costillar">
+                <div class="flex-1">
+                    <h3 class="font-bold text-sm">Costillar</h3>
+                    <p class="text-[10px] text-slate-500 uppercase">Categoría: Vaca</p>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-[10px] text-slate-400">ARS $</span>
+                        <input type="number" value="7200" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-9 h-5 bg-white/10 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                        <span class="ml-2 text-[10px] font-bold text-slate-400 uppercase peer-checked:text-primary">Stock</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Card 3 (Pollo) -->
+            <div class="glass rounded-2xl p-4 flex items-center gap-4 border-l-4 border-primary/40">
+                <img src="Imagenes/pollo.jpg" class="w-16 h-16 rounded-xl object-cover" alt="Pollo">
+                <div class="flex-1">
+                    <h3 class="font-bold text-sm">Pollo Entero</h3>
+                    <p class="text-[10px] text-slate-500 uppercase">Categoría: Pollo</p>
+                </div>
+                <div class="flex flex-col items-end gap-2">
+                    <div class="flex items-center gap-1">
+                        <span class="text-[10px] text-slate-400">ARS $</span>
+                        <input type="number" value="2800" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-9 h-5 bg-white/10 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                        <span class="ml-2 text-[10px] font-bold text-slate-400 uppercase peer-checked:text-primary">Stock</span>
+                    </label>
+                </div>
+            </div>
+
+            <p class="text-center py-6 text-[10px] text-slate-600 uppercase tracking-widest">Fin del catálogo</p>
+        </div>
+    </main>
+
+    <!-- Footer Action Bar -->
+    <div class="fixed bottom-0 left-0 w-full p-6 bg-gradient-to-t from-[#150808] via-[#150808] to-transparent z-50">
+        <button class="w-full bg-primary hover:bg-red-700 text-white py-5 rounded-2xl font-bold shadow-2xl shadow-primary/40 flex items-center justify-center gap-3 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">publish</span>
+            PUBLICAR CAMBIOS (ONLINE)
+        </button>
+    </div>
+</body>
+</html>
