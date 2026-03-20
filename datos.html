@@ -265,6 +265,10 @@
 <script>
     let cart = JSON.parse(sessionStorage.getItem('butchery_cart')) || [];
 
+    function formatQty(qty) {
+        return qty.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 });
+    }
+
     function renderSideSummary() {
         const container = document.getElementById('side-summary-container');
         const totalEl = document.getElementById('side-total');
@@ -288,7 +292,7 @@
             div.innerHTML = `
                 <div class="flex flex-col">
                     <span class="text-slate-300 font-medium">${item.name}</span>
-                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">${item.qty.toLocaleString('es-AR', {minimumFractionDigits: 3})} kg x ARS $${item.price.toLocaleString('es-AR')}</span>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-widest">${formatQty(item.qty)} kg x ARS $${item.price.toLocaleString('es-AR')}</span>
                 </div>
                 <span class="font-bold text-slate-100">ARS $${itemTotal.toLocaleString('es-AR')}</span>
             `;
@@ -373,7 +377,7 @@
         message += `*DETALLE DEL PEDIDO:*\n`;
         
         cart.forEach(item => {
-            message += `- ${item.qty.toLocaleString('es-AR', {minimumFractionDigits: 3})} kg x ${item.name} (ARS $${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+            message += `- ${formatQty(item.qty)} kg x ${item.name} (ARS $${(item.price * item.qty).toLocaleString('es-AR')})\n`;
         });
         
         message += `\n*TOTAL ESTIMADO:* ${total}\n\n`;

@@ -138,6 +138,10 @@
     <script>
         let cart = JSON.parse(sessionStorage.getItem('butchery_cart')) || [];
 
+        function formatQty(qty) {
+            return qty.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 });
+        }
+
         function renderCart() {
             const container = document.getElementById('cart-items-container');
             const subtotalEl = document.getElementById('checkout-subtotal');
@@ -191,7 +195,7 @@
                     <div class="lg:col-span-2 flex justify-center items-center gap-4">
                             <div class="flex items-center gap-2 bg-background-dark/50 rounded-lg p-1">
                                 <button onclick="changeQty(${index}, -0.5)" class="w-8 h-8 flex items-center justify-center hover:bg-primary/20 rounded transition-colors">-</button>
-                                <span class="w-16 text-center font-bold text-slate-100">${item.qty.toLocaleString('es-AR', {minimumFractionDigits: 3})} kg</span>
+                                <span class="w-16 text-center font-bold text-slate-100">${formatQty(item.qty)} kg</span>
                                 <button onclick="changeQty(${index}, 0.5)" class="w-8 h-8 flex items-center justify-center hover:bg-primary/20 rounded transition-colors">+</button>
                             </div>
                         <button onclick="removeItem(${index})" class="text-gray-500 hover:text-primary transition-colors p-2" title="Eliminar artículo">

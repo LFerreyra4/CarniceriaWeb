@@ -227,11 +227,18 @@ const products = [
             { id: 'conejo-entero', name: 'Conejo Entero', price: 12000, category: 'conejo', desc: 'Carne magra y delicada, fresca del día.', img: 'Imagenes/conejo.jpg' }
         ];
 
-        // Forzar limpieza del carrito al refrescar la página (como pidió el usuario)
+        const buyNowBtn = null; // Placeholder for legacy code
+        let quantities = {}; // Global tracking for product card quantities
+
         sessionStorage.removeItem('butchery_cart');
         let cart = [];
         let currentCategory = 'vaca';
         let currentSearch = '';
+
+        function formatQty(qty) {
+            // Solo mostrar decimales si no es un entero
+            return qty.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 3 });
+        }
 
         function renderCatalog() {
             const container = document.getElementById('catalog-container');
@@ -270,7 +277,7 @@ const products = [
                         <div class="flex items-center gap-2 mb-4 bg-background-dark/50 rounded-lg p-1">
                             <button onclick="decrement('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">remove</span></button>
                             <div class="flex flex-col items-center px-2">
-                                <span id="qty-${p.id}" class="font-bold text-slate-100 italic">1,000</span>
+                                <span id="qty-${p.id}" class="font-bold text-slate-100 italic">1</span>
                                 <span class="text-[8px] text-slate-500 uppercase">kg aprox.</span>
                             </div>
                             <button onclick="increment('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">add</span></button>
@@ -309,7 +316,7 @@ const products = [
             const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
             
             document.getElementById('header-cart-count').innerText = cart.length;
-            document.getElementById('footer-cart-desc').innerText = `${totalItems.toLocaleString('es-AR')} kg de cortes reservados`;
+            document.getElementById('footer-cart-desc').innerText = `${formatQty(totalItems)} kg de cortes reservados`;
             document.getElementById('footer-cart-total').innerText = `ARS $${totalPrice.toLocaleString('es-AR')} *`;
             
             sessionStorage.setItem('butchery_cart', JSON.stringify(cart));
@@ -318,14 +325,14 @@ const products = [
         function increment(id) {
             if (!quantities[id]) quantities[id] = 1;
             quantities[id] += 0.5;
-            document.getElementById(`qty-${id}`).innerText = quantities[id].toLocaleString('es-AR', {minimumFractionDigits: 3});
+            document.getElementById(`qty-${id}`).innerText = formatQty(quantities[id]);
         }
 
         function decrement(id) {
             if (!quantities[id]) quantities[id] = 1;
             if (quantities[id] > 1) {
                 quantities[id] -= 0.5;
-                document.getElementById(`qty-${id}`).innerText = quantities[id].toLocaleString('es-AR', {minimumFractionDigits: 3});
+                document.getElementById(`qty-${id}`).innerText = formatQty(quantities[id]);
             }
         }
 
@@ -344,7 +351,8 @@ const products = [
             
             updateCartUI();
             
-            // Re-set display qty to 1 after adding
+            // Re-set display qty and memory to 1 after adding
+            quantities[id] = 1;
             document.getElementById(`qty-${id}`).innerText = 1;
 
             // Simple visual feedback
