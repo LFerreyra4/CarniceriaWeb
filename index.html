@@ -269,7 +269,10 @@ const products = [
                         </div>
                         <div class="flex items-center gap-2 mb-4 bg-background-dark/50 rounded-lg p-1">
                             <button onclick="decrement('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">remove</span></button>
-                            <span id="qty-${p.id}" class="px-4 font-bold text-slate-100">1</span>
+                            <div class="flex flex-col items-center px-2">
+                                <span id="qty-${p.id}" class="font-bold text-slate-100 italic">1,000</span>
+                                <span class="text-[8px] text-slate-500 uppercase">kg aprox.</span>
+                            </div>
                             <button onclick="increment('${p.id}')" class="flex-1 flex items-center justify-center h-8 hover:bg-primary/20 rounded text-slate-100"><span class="material-symbols-outlined text-sm">add</span></button>
                         </div>
                         <button onclick="addToCart('${p.id}', '${p.name}', ${p.price})" class="w-full py-3 bg-primary hover:bg-red-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-colors">
@@ -305,28 +308,29 @@ const products = [
             const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
             const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
             
-            document.getElementById('header-cart-count').innerText = totalItems;
-            document.getElementById('footer-cart-desc').innerText = `${totalItems} Productos seleccionados`;
+            document.getElementById('header-cart-count').innerText = cart.length;
+            document.getElementById('footer-cart-desc').innerText = `${totalItems.toLocaleString('es-AR')} kg de cortes reservados`;
             document.getElementById('footer-cart-total').innerText = `ARS $${totalPrice.toLocaleString('es-AR')} *`;
             
             sessionStorage.setItem('butchery_cart', JSON.stringify(cart));
         }
 
         function increment(id) {
-            const el = document.getElementById(`qty-${id}`);
-            el.innerText = parseInt(el.innerText) + 1;
+            if (!quantities[id]) quantities[id] = 1;
+            quantities[id] += 0.5;
+            document.getElementById(`qty-${id}`).innerText = quantities[id].toLocaleString('es-AR', {minimumFractionDigits: 3});
         }
 
         function decrement(id) {
-            const el = document.getElementById(`qty-${id}`);
-            const val = parseInt(el.innerText);
-            if (val > 1) {
-                el.innerText = val - 1;
+            if (!quantities[id]) quantities[id] = 1;
+            if (quantities[id] > 1) {
+                quantities[id] -= 0.5;
+                document.getElementById(`qty-${id}`).innerText = quantities[id].toLocaleString('es-AR', {minimumFractionDigits: 3});
             }
         }
 
         function addToCart(id, name, price) {
-            const qty = parseInt(document.getElementById(`qty-${id}`).innerText);
+            const qty = quantities[id] || 1; // Use the stored quantity, default to 1 if not set
             const existingItem = cart.find(item => item.id === id);
             
             const product = products.find(p => p.id === id);
