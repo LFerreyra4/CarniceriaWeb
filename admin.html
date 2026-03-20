@@ -48,7 +48,7 @@
             <p class="text-slate-500 text-sm">Ingrese el PIN de administración</p>
         </div>
         <div class="flex gap-4 mb-8">
-            <input type="password" id="admin-pin" class="bg-white/5 border-white/10 rounded-xl text-center text-3xl font-bold w-48 py-4 focus:ring-primary focus:border-primary" placeholder="••••" maxlength="4">
+            <input type="tel" pattern="[0-9]*" inputmode="numeric" id="admin-pin" class="bg-white/5 border-white/10 rounded-xl text-center text-3xl font-bold w-48 py-4 focus:ring-primary focus:border-primary" placeholder="••••" maxlength="4">
         </div>
         <button onclick="checkPin()" class="w-full max-w-[200px] py-4 bg-primary text-white rounded-xl font-bold active:scale-95 transition-all">ACCEDER</button>
         <p id="pin-error" class="text-primary text-xs mt-4 font-bold hidden uppercase tracking-widest">PIN INCORRECTO</p>
