@@ -229,16 +229,19 @@
         const db = getFirestore(app);
 
         window.initCatalog = async function() {
-            const container = document.getElementById('catalog-container');
-            if (container) {
-                container.innerHTML = `
-                    <div class="col-span-full py-20 text-center animate-pulse">
-                        <span class="material-symbols-outlined text-4xl text-slate-700 mb-4 animate-spin">sync</span>
-                        <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Actualizando Precios...</p>
-                    </div>
-                `;
-            }
+            // 1. CARGA INSTANTÁNEA (Desde el archivo local mientras llega la nube)
+            try {
+                const response = await fetch('productos.json');
+                const localData = await response.json();
+                if (!window.products || window.products.length === 0) {
+                    window.products = localData;
+                    if (typeof window.renderCatalog === 'function') {
+                        window.renderCatalog();
+                    }
+                }
+            } catch (e) { console.warn("Local data load failed, waiting for cloud..."); }
 
+            // 2. CARGA EN SEGUNDO PLANO (Sincronización real con Firebase)
             try {
                 const querySnapshot = await getDocs(collection(db, "productos"));
                 if (!querySnapshot.empty) {
@@ -246,18 +249,15 @@
                     querySnapshot.forEach((doc) => {
                         cloudProducts.push({ id: doc.id, ...doc.data() });
                     });
+                    
+                    // Solo re-renderizar si hubo cambios o si no había datos aún
                     window.products = cloudProducts;
-                } else {
-                    const response = await fetch('productos.json');
-                    window.products = await response.json();
+                    if (typeof window.renderCatalog === 'function') {
+                        window.renderCatalog();
+                    }
                 }
             } catch (error) {
-                console.error("Firebase Connection Error:", error);
-                const response = await fetch('productos.json');
-                window.products = await response.json();
-            }
-            if (typeof window.renderCatalog === 'function') {
-                window.renderCatalog();
+                console.error("Firebase Sync Delayed:", error);
             }
         }
 
