@@ -2,6 +2,7 @@ const CACHE_NAME = 'guielifer-admin-v1';
 const ASSETS = [
   'admin.html',
   'manifest.json',
+  'productos.json',
   'Imagenes/logo_transparente_v2.png'
 ];
 

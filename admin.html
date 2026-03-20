@@ -77,7 +77,7 @@
         <div class="space-y-4">
             <div class="flex items-center justify-between px-1">
                 <h2 class="text-xs uppercase tracking-[0.3em] font-bold text-slate-500">Catálogo de Cortes</h2>
-                <span class="text-[8px] bg-white/10 px-2 py-1 rounded text-slate-400 font-bold uppercase">Cargando...</span>
+                <span id="loading-status" class="text-[8px] bg-white/10 px-2 py-1 rounded text-slate-400 font-bold uppercase">Sincronizado</span>
             </div>
             
             <div id="products-list" class="space-y-4">
@@ -163,6 +163,8 @@
                         document.getElementById('stat-api').innerText = "Online (En Vivo)";
                         document.getElementById('stat-api').classList.replace('text-slate-400', 'text-green-500');
                         document.getElementById('seed-banner').classList.add('hidden');
+                        document.getElementById('loading-status').innerText = "Nube Actualizada";
+                        document.getElementById('loading-status').classList.replace('text-slate-400', 'text-green-400');
                         renderList();
                         document.getElementById('stat-total').innerText = products.length;
                     } else if (products.length > 0) {
@@ -194,7 +196,7 @@
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1">
                             <span class="text-[10px] text-slate-400 font-bold">ARS $</span>
-                            <input type="number" onchange="window.updatePrice(${index}, this.value)" value="${p.price}" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                            <input type="number" onchange="window.updatePrice(${index}, this.value)" value="${p.price || 0}" class="form-input-custom w-24 p-2 rounded-lg text-sm">
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" onchange="window.updateStock(${index}, this.checked)" ${p.stock !== false ? 'checked' : ''} class="sr-only peer">
