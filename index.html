@@ -410,35 +410,8 @@
             }, 2000);
         }
 
-        // Función para cargar productos desde la planilla o fallback local
-        async function initCatalog() {
-            try {
-                let response;
-                if (SHEET_API_URL) {
-                    response = await fetch(SHEET_API_URL);
-                } else {
-                    // Cargar desde el archivo local si no hay URL de API
-                    response = await fetch('productos.json');
-                }
-                
-                if (!response.ok) throw new Error("No se pudo cargar el catálogo");
-                
-                products = await response.json();
-                renderCatalog();
-            } catch (error) {
-                console.error("Error cargando productos:", error);
-                // Si falla todo, podríamos mostrar un mensaje de error en el catálogo
-                document.getElementById('catalog-container').innerHTML = `
-                    <div class="col-span-full py-20 text-center">
-                        <span class="material-symbols-outlined text-6xl text-primary mb-4">error</span>
-                        <p class="text-slate-100 text-lg">Hubo un problema al cargar los cortes. Reintente en unos instantes.</p>
-                    </div>
-                `;
-            }
-        }
-
         // Initialize UI
-        initCatalog();
+        // La carga inicial ahora la maneja el script type="module" arriba via window.initCatalog()
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
             const logo = document.getElementById('header-logo');
