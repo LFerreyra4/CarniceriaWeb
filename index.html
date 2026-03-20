@@ -265,8 +265,8 @@
         window.initCatalog();
     </script>
     <script>
-        // Global State (Initial empty, populated by Firebase)
-        window.products = [];
+        // Global State (Initial empty, populated by Firebase/JSON)
+        // window.products ya está definido como [] en el script de arriba
         let quantities = {}; // Global tracking for product card quantities
 
         sessionStorage.removeItem('butchery_cart');
