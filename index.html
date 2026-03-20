@@ -213,7 +213,7 @@
     <!-- App logic & Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // CONFIGURACIÓN
         const firebaseConfig = {
@@ -410,15 +410,16 @@
                 }
             } catch (e) { console.warn("Fallback local no disponible"); }
 
-            // 2. Intentar actualizar desde Firebase (Cloud)
+            // 2. Escucha en Tiempo Real desde Firebase (Cloud)
             try {
-                const querySnapshot = await getDocs(collection(db, "productos"));
-                if (!querySnapshot.empty) {
-                    const cloud = [];
-                    querySnapshot.forEach(doc => cloud.push({ id: doc.id, ...doc.data() }));
-                    window.products = cloud;
-                    window.renderCatalog();
-                }
+                onSnapshot(collection(db, "productos"), (querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        const cloud = [];
+                        querySnapshot.forEach(doc => cloud.push({ id: doc.id, ...doc.data() }));
+                        window.products = cloud;
+                        window.renderCatalog();
+                    }
+                });
             } catch (e) { console.warn("Sincronización cloud demorada..."); }
         }
 
