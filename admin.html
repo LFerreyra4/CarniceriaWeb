@@ -56,6 +56,12 @@
 
     <main id="admin-main" class="p-6 space-y-8 max-w-lg mx-auto hidden opacity-0 transition-opacity duration-500">
         <!-- Resumen Rápido -->
+        <!-- Banner de Inicialización -->
+        <div id="seed-banner" class="hidden glass p-4 rounded-2xl border-primary/50 bg-primary/10 mb-4 animate-pulse">
+            <p class="text-xs text-slate-300 mb-3 text-center italic">¡Base de datos vacía detectada! ¿Querés cargar los precios actuales de la web a la nube?</p>
+            <button onclick="publishChanges()" class="w-full py-3 bg-primary text-white text-xs font-bold rounded-xl uppercase tracking-widest shadow-lg active:scale-95 transition-all">Sincronizar Catálogo Inicial</button>
+        </div>
+
         <div class="grid grid-cols-2 gap-4">
             <div class="glass p-4 rounded-2xl">
                 <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Cortes Totales</p>
