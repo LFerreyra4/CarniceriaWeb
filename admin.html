@@ -134,8 +134,20 @@
         }
 
         async function loadData() {
+            // 1. Carga inmediata desde JSON local (para pre-visualización rápida)
             try {
-                // Escucha en Tiempo Real desde Firebase
+                const response = await fetch('productos.json');
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    products = data;
+                    renderList();
+                    document.getElementById('stat-total').innerText = products.length;
+                    document.getElementById('stat-api').innerText = "Cargando Nube...";
+                }
+            } catch (e) { console.warn("Fallback local no disponible"); }
+
+            // 2. Escucha en Tiempo Real desde Firebase (Cloud)
+            try {
                 onSnapshot(collection(db, "productos"), (querySnapshot) => {
                     if (!querySnapshot.empty) {
                         products = [];
@@ -146,10 +158,14 @@
                         document.getElementById('stat-api').classList.replace('text-slate-400', 'text-green-500');
                         renderList();
                         document.getElementById('stat-total').innerText = products.length;
+                    } else if (products.length === 0) {
+                        document.getElementById('stat-api').innerText = "Base vacía";
                     } else {
-                        // Si está totalmente vacío (primera vez), se puede inicializar desde local
-                        // fetch('productos.json')...
+                        document.getElementById('stat-api').innerText = "Sincronizado";
                     }
+                }, (error) => {
+                    console.error("Firestore Error:", error);
+                    document.getElementById('stat-api').innerText = "Error Cloud";
                 });
             } catch (error) {
                 console.error(error);
