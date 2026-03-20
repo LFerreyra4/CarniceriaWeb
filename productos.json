@@ -1,0 +1,13 @@
+[
+    { "id": "ojo-bife", "name": "Ojo de Bife", "price": 8500, "category": "vaca", "desc": "Corte premium con excelente infiltración.", "img": "Imagenes/ojo_de_bife.jpg" },
+    { "id": "costillar", "name": "Costillar", "price": 7200, "category": "vaca", "desc": "Tradicional asado de tira, ideal parrilla.", "img": "Imagenes/costillar vaca.png" },
+    { "id": "vacio", "name": "Vacío Premium", "price": 9100, "category": "vaca", "desc": "Corte jugoso y tierno, con capa de grasa.", "img": "Imagenes/vacio de vaca.jpg" },
+    { "id": "milanesa-vaca", "name": "Milanesa de Ternera", "price": 5400, "category": "vaca", "desc": "Nalga o bola de lomo tiernizada.", "img": "Imagenes/Milanesa_ternera.jpg" },
+    { "id": "matambre", "name": "Matambre de Cerdo", "price": 6800, "category": "cerdo", "desc": "Ideal para tiernizar a la leche o parrilla.", "img": "Imagenes/matambre de cerdo.jpg" },
+    { "id": "pechito", "name": "Pechito con Manta", "price": 5900, "category": "cerdo", "desc": "Corte clásico de cerdo, muy sabroso.", "img": "Imagenes/pechito de cerdo.jpg" },
+    { "id": "chorizo", "name": "Chorizo Casero", "price": 4500, "category": "cerdo", "desc": "Elaboración propia con especias.", "img": "Imagenes/chorizo.jpg" },
+    { "id": "pollo-entero", "name": "Pollo Completo", "price": 2800, "category": "pollo", "desc": "Pollo de campo fresco por unidad.", "img": "Imagenes/pollo.jpg" },
+    { "id": "pollo-trozado", "name": "Pollo Trozado", "price": 3100, "category": "pollo", "desc": "Listo para cocinar, trozado a mano.", "img": "Imagenes/pollo trozado.jpg" },
+    { "id": "pollo-deshuesado", "name": "Pollo Deshuesado", "price": 4500, "category": "pollo", "desc": "Ideal para arrollar o plancha.", "img": "Imagenes/pollo deshuesado.jpg" },
+    { "id": "conejo-entero", "name": "Conejo Entero", "price": 12000, "category": "conejo", "desc": "Carne magra y delicada, fresca del día.", "img": "Imagenes/conejo.jpg" }
+]

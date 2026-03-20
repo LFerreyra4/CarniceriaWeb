@@ -213,21 +213,9 @@
 </footer>
 </div>
     <script>
-const products = [
-            { id: 'ojo-bife', name: 'Ojo de Bife', price: 8500, category: 'vaca', desc: 'Corte premium con excelente infiltración.', img: 'Imagenes/ojo_de_bife.jpg' },
-            { id: 'costillar', name: 'Costillar', price: 7200, category: 'vaca', desc: 'Tradicional asado de tira, ideal parrilla.', img: 'Imagenes/costillar vaca.png' },
-            { id: 'vacio', name: 'Vacío Premium', price: 9100, category: 'vaca', desc: 'Corte jugoso y tierno, con capa de grasa.', img: 'Imagenes/vacio de vaca.jpg' },
-            { id: 'milanesa-vaca', name: 'Milanesa de Ternera', price: 5400, category: 'vaca', desc: 'Nalga o bola de lomo tiernizada.', img: 'Imagenes/Milanesa_ternera.jpg' },
-            { id: 'matambre', name: 'Matambre de Cerdo', price: 6800, category: 'cerdo', desc: 'Ideal para tiernizar a la leche o parrilla.', img: 'Imagenes/matambre de cerdo.jpg' },
-            { id: 'pechito', name: 'Pechito con Manta', price: 5900, category: 'cerdo', desc: 'Corte clásico de cerdo, muy sabroso.', img: 'Imagenes/pechito de cerdo.jpg' },
-            { id: 'chorizo', name: 'Chorizo Casero', price: 4500, category: 'cerdo', desc: 'Elaboración propia con especias.', img: 'Imagenes/chorizo.jpg' },
-            { id: 'pollo-entero', name: 'Pollo Completo', price: 2800, category: 'pollo', desc: 'Pollo de campo fresco por unidad.', img: 'Imagenes/pollo.jpg' },
-            { id: 'pollo-trozado', name: 'Pollo Trozado', price: 3100, category: 'pollo', desc: 'Listo para cocinar, trozado a mano.', img: 'Imagenes/pollo trozado.jpg' },
-            { id: 'pollo-deshuesado', name: 'Pollo Deshuesado', price: 4500, category: 'pollo', desc: 'Ideal para arrollar o plancha.', img: 'Imagenes/pollo deshuesado.jpg' },
-            { id: 'conejo-entero', name: 'Conejo Entero', price: 12000, category: 'conejo', desc: 'Carne magra y delicada, fresca del día.', img: 'Imagenes/conejo.jpg' }
-        ];
-
-        const buyNowBtn = null; // Placeholder for legacy code
+        // URL de la planilla de Google (Via Sheetbest/Sheety) - Por ahora vacía
+        const SHEET_API_URL = ""; 
+        let products = [];
         let quantities = {}; // Global tracking for product card quantities
 
         sessionStorage.removeItem('butchery_cart');
@@ -366,8 +354,35 @@ const products = [
             }, 2000);
         }
 
+        // Función para cargar productos desde la planilla o fallback local
+        async function initCatalog() {
+            try {
+                let response;
+                if (SHEET_API_URL) {
+                    response = await fetch(SHEET_API_URL);
+                } else {
+                    // Cargar desde el archivo local si no hay URL de API
+                    response = await fetch('productos.json');
+                }
+                
+                if (!response.ok) throw new Error("No se pudo cargar el catálogo");
+                
+                products = await response.json();
+                renderCatalog();
+            } catch (error) {
+                console.error("Error cargando productos:", error);
+                // Si falla todo, podríamos mostrar un mensaje de error en el catálogo
+                document.getElementById('catalog-container').innerHTML = `
+                    <div class="col-span-full py-20 text-center">
+                        <span class="material-symbols-outlined text-6xl text-primary mb-4">error</span>
+                        <p class="text-slate-100 text-lg">Hubo un problema al cargar los cortes. Reintente en unos instantes.</p>
+                    </div>
+                `;
+            }
+        }
+
         // Initialize UI
-        renderCatalog('vaca');
+        initCatalog();
         window.addEventListener('scroll', () => {
             const header = document.getElementById('main-header');
             const logo = document.getElementById('header-logo');
