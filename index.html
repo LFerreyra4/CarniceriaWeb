@@ -227,7 +227,9 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const d        // ESTADO GLOBAL (Con respaldo inicial para carga instantánea)
+        const db = getFirestore(app);
+
+        // ESTADO GLOBAL (Con respaldo inicial para carga instantánea)
         window.products = [
             { id: 'ojo-bife', name: 'Ojo de Bife', price: 8500, category: 'vaca', desc: 'Corte premium con excelente infiltración.', img: 'Imagenes/ojo_de_bife.jpg' },
             { id: 'costillar', name: 'Costillar', price: 7200, category: 'vaca', desc: 'Tradicional asado de tira, ideal parrilla.', img: 'Imagenes/costillar vaca.png' },
