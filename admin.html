@@ -188,12 +188,18 @@
             const container = document.getElementById('products-list');
             if (!container) return;
             container.innerHTML = products.map((p, index) => {
-                const price = typeof p.price === 'string' ? parseFloat(p.price.replace(/[^0-9.-]+/g,"")) : p.price;
+                // Limpieza ultra-robusta de precio
+                let cleanPrice = p.price;
+                if (typeof cleanPrice === 'string') {
+                    cleanPrice = cleanPrice.replace(',', '.'); // Cambiar coma por punto
+                    cleanPrice = parseFloat(cleanPrice.replace(/[^0-9.]/g,""));
+                }
+                
                 return `
                 <div class="glass rounded-2xl p-4 flex items-center gap-4">
                     <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover" alt="${p.name}">
                     <div class="flex-1">
-                        <h3 class="font-bold text-sm text-slate-100">${p.name}</h3>
+                        <h3 class="font-bold text-sm text-slate-100">${p.name} <span class="text-[8px] text-blue-400 opacity-50">(${p.price})</span></h3>
                         <div class="flex items-center gap-2">
                             <span class="text-[8px] text-slate-500 uppercase tracking-widest">${p.category}</span>
                             ${p.stock === false ? '<span class="text-[8px] bg-primary/20 text-primary px-1 rounded font-bold uppercase">Pausado</span>' : ''}
@@ -202,7 +208,7 @@
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1">
                             <span class="text-[10px] text-slate-400 font-bold">ARS $</span>
-                            <input type="number" onchange="window.updatePrice(${index}, this.value)" value="${price || 0}" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                            <input type="text" inputmode="decimal" onchange="window.updatePrice(${index}, this.value)" value="${cleanPrice || 0}" class="form-input-custom w-24 p-2 rounded-lg text-sm text-center">
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" onchange="window.updateStock(${index}, this.checked)" ${p.stock !== false ? 'checked' : ''} class="sr-only peer">
