@@ -184,22 +184,28 @@
             }
         }
 
+        window.updatePrice = (index, val) => {
+            // Limpieza total: removemos cualquier punto o coma para quedarnos con el número base
+            const numericValue = val.replace(/[^0-9]/g, "");
+            products[index].price = parseInt(numericValue) || 0;
+            renderList(); // Refrescar para aplicar formato tras edición
+        };
+
+        window.formatPrice = (val) => {
+            const n = parseInt(val) || 0;
+            return n.toLocaleString('es-AR');
+        };
+
         function renderList() {
             const container = document.getElementById('products-list');
             if (!container) return;
             container.innerHTML = products.map((p, index) => {
-                // Limpieza ultra-robusta de precio
-                let cleanPrice = p.price;
-                if (typeof cleanPrice === 'string') {
-                    cleanPrice = cleanPrice.replace(',', '.'); // Cambiar coma por punto
-                    cleanPrice = parseFloat(cleanPrice.replace(/[^0-9.]/g,""));
-                }
-                
+                const formattedPrice = window.formatPrice(p.price);
                 return `
                 <div class="glass rounded-2xl p-4 flex items-center gap-4">
                     <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover" alt="${p.name}">
                     <div class="flex-1">
-                        <h3 class="font-bold text-sm text-slate-100">${p.name} <span class="text-[10px] text-blue-400 font-mono">[$${p.price}]</span></h3>
+                        <h3 class="font-bold text-sm text-slate-100">${p.name}</h3>
                         <div class="flex items-center gap-2">
                             <span class="text-[8px] text-slate-500 uppercase tracking-widest">${p.category}</span>
                             ${p.stock === false ? '<span class="text-[8px] bg-primary/20 text-primary px-1 rounded font-bold uppercase">Pausado</span>' : ''}
@@ -208,7 +214,7 @@
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1">
                             <span class="text-[10px] text-slate-400 font-bold">VALOR:</span>
-                            <input type="tel" onchange="window.updatePrice(${index}, this.value)" value="${p.price}" 
+                            <input type="tel" onfocus="this.select()" onchange="window.updatePrice(${index}, this.value)" value="${formattedPrice}" 
                                    class="w-24 bg-black border border-white/20 text-white rounded-lg p-3 text-center font-bold shadow-inner" 
                                    placeholder="0">
                         </div>
@@ -222,7 +228,6 @@
             `; }).join('');
         }
 
-        window.updatePrice = (index, val) => products[index].price = parseFloat(val);
         window.updateStock = (index, val) => {
             products[index].stock = val;
             renderList(); // Refrescar para mostrar el tag "Pausado"
