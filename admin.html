@@ -165,7 +165,10 @@
                         document.getElementById('seed-banner').classList.add('hidden');
                         document.getElementById('loading-status').innerText = "Nube Actualizada";
                         document.getElementById('loading-status').classList.replace('text-slate-400', 'text-green-400');
-                        renderList();
+                        if (products.length > 0) {
+                            console.log("Admin - Datos sincronizados:", products);
+                            renderList();
+                        }
                         document.getElementById('stat-total').innerText = products.length;
                     } else if (products.length > 0) {
                         document.getElementById('stat-api').innerText = "Nube Vacía";
@@ -176,14 +179,17 @@
                     document.getElementById('stat-api').innerText = "Error Cloud";
                 });
             } catch (error) {
-                console.error(error);
+                console.error("LoadData Error:", error);
                 showToast("Error de conexión sincronizada.", true);
             }
         }
 
         function renderList() {
             const container = document.getElementById('products-list');
-            container.innerHTML = products.map((p, index) => `
+            if (!container) return;
+            container.innerHTML = products.map((p, index) => {
+                const price = typeof p.price === 'string' ? parseFloat(p.price.replace(/[^0-9.-]+/g,"")) : p.price;
+                return `
                 <div class="glass rounded-2xl p-4 flex items-center gap-4">
                     <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover" alt="${p.name}">
                     <div class="flex-1">
@@ -196,7 +202,7 @@
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1">
                             <span class="text-[10px] text-slate-400 font-bold">ARS $</span>
-                            <input type="number" onchange="window.updatePrice(${index}, this.value)" value="${p.price || 0}" class="form-input-custom w-24 p-2 rounded-lg text-sm">
+                            <input type="number" onchange="window.updatePrice(${index}, this.value)" value="${price || 0}" class="form-input-custom w-24 p-2 rounded-lg text-sm">
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" onchange="window.updateStock(${index}, this.checked)" ${p.stock !== false ? 'checked' : ''} class="sr-only peer">
@@ -205,7 +211,7 @@
                         </label>
                     </div>
                 </div>
-            `).join('');
+            `; }).join('');
         }
 
         window.updatePrice = (index, val) => products[index].price = parseFloat(val);
