@@ -50,7 +50,7 @@
     <div class="flex flex-col min-h-screen">
         <header class="sticky top-0 z-50 bg-[#221010]/95 backdrop-blur-md border-b border-white/5 px-6 lg:pl-8 lg:pr-10 py-6 flex items-center justify-between w-full">
             <div class="flex items-center gap-4">
-                <img src="Imagenes/logo_transparente_v2.png" class="h-28 w-auto logo-sharp" alt="Logo Gui-Eli-Fer">
+                <img src="assets/images/logo_transparente_v2.png" class="h-28 w-auto logo-sharp" alt="Logo Gui-Eli-Fer">
                 <div class="flex flex-col">
                     <h2 class="text-white text-2xl font-black tracking-tighter leading-none">GUI-ELI-FER</h2>
                     <span class="text-[10px] tracking-[0.4em] text-primary font-bold uppercase">Carnicería Boutique</span>
@@ -120,7 +120,7 @@
         <footer class="mt-auto border-t border-white/5 bg-black/40 py-12 px-6 lg:px-20">
             <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="flex items-center gap-3">
-                    <img src="Imagenes/logo_transparente_v2.png" class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity" alt="Logo Gui-Eli-Fer">
+                    <img src="assets/images/logo_transparente_v2.png" class="h-12 w-auto opacity-50 hover:opacity-100 transition-opacity" alt="Logo Gui-Eli-Fer">
                     <span class="text-white font-black tracking-tighter text-xl">GUI-ELI-FER</span>
                 </div>
                 <div class="flex gap-10 text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold">
@@ -167,8 +167,8 @@
                 let imgSrc = item.img || '';
                 
                 if (imgSrc && typeof imgSrc === 'string') {
-                    if (!imgSrc.startsWith('http') && !imgSrc.startsWith('Imagenes/')) {
-                        imgSrc = 'Imagenes/' + imgSrc;
+                    if (!imgSrc.startsWith('http') && !imgSrc.startsWith('assets/images/')) {
+                        imgSrc = 'assets/images/' + imgSrc;
                     }
                 } else {
                     imgSrc = 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800';
